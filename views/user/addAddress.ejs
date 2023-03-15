@@ -66,7 +66,7 @@
                       <div class="col-md-12 mb-4">
       
                         <div class="form-outline">
-                          <input type="text"   name="name" class="form-control form-control-lg" />
+                          <input type="text" name="name" class="form-control form-control-lg" required />
                           <label class="form-label">name</label>
                         </div>
       
@@ -74,7 +74,7 @@
                       <div class="col-md-12 mb-4">
       
                         <div class="form-outline">
-                          <input type="text"   name="hname" class="form-control form-control-lg" />
+                          <input type="text"   name="hname" class="form-control form-control-lg" required />
                           <label class="form-label">House Name</label>
                         </div>
       
@@ -83,7 +83,7 @@
                       <div class="col-md-6 mb-4">
       
                         <div class="form-outline">
-                          <input type="text"  name="street" class="form-control form-control-lg" />
+                          <input type="text"  name="street" class="form-control form-control-lg" required />
                           <label class="form-label">Street</label>
                         </div>
       
@@ -91,7 +91,7 @@
                       <div class="col-md-6 mb-4">
       
                         <div class="form-outline">
-                          <input type="text"  name="district" class="form-control form-control-lg" />
+                          <input type="text"  name="district" class="form-control form-control-lg" required />
                           <label class="form-label">District</label>
                         </div>
           
@@ -102,7 +102,7 @@
                       <div class="col-md-6 mb-4 d-flex align-items-center">
       
                         <div class="form-outline datepicker w-100">
-                          <input type="text" name="state" class="form-control form-control-lg" id="birthdayDate" />
+                          <input type="text" name="state" class="form-control form-control-lg" id="birthdayDate" required />
                           <label  class="form-label">State</label>
                         </div>
       
@@ -111,7 +111,7 @@
                       <div class="col-md-6 mb-4 pb-2">
       
                         <div class="form-outline">
-                          <input type="text"  name="country" class="form-control form-control-lg" />
+                          <input type="text"  name="country" class="form-control form-control-lg" required />
                           <label class="form-label" >Country</label>
                         </div>
       
@@ -123,16 +123,15 @@
                       <div class="col-md-6 mb-4 pb-2">
       
                         <div class="form-outline">
-                          <input type="Number" id="emailAddress" name="pincode" class="form-control form-control-lg" />
+                          <input type="Number" id="pincode" name="pincode" class="form-control form-control-lg" />
                           <label class="form-label">pincode</label>
                         </div>
       
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
-      
                         <div class="form-outline">
-                          <input type="Number" name="number" class="form-control form-control-lg" />
-                          <label class="form-label">Phone Number</label>
+                          <input type="text" id="phone" name="number" class="form-control form-control-lg" required />
+                          <label class="form-label" for="phone">Phone Number</label>
                         </div>
       
                       </div>
@@ -157,4 +156,40 @@
 
    
     </main><!-- End #main -->
+    <script>
+      const pincodeInput = document.getElementById('pincode');
+const pincodePattern = /^\d{6}$/;
+
+pincodeInput.addEventListener('input', function() {
+  const isValidPincode = pincodePattern.test(pincodeInput.value);
+
+  if (!isValidPincode) {
+    pincodeInput.setCustomValidity('Please enter a valid 6-digit pincode');
+  } else {
+    pincodeInput.setCustomValidity('');
+  }
+});
+
+    </script>
+    <script>
+      var phoneInput = document.getElementById("phone");
+    
+      phoneInput.addEventListener("blur", function() {
+        validatePhoneNumber();
+      });
+    
+      function validatePhoneNumber() {
+        var phoneValue = phoneInput.value;
+        var phoneRegex = /^\d{10}$/; // Regular expression to match 10 digits
+    
+        if (phoneRegex.test(phoneValue)) {
+          // Phone number is valid
+          phoneInput.setCustomValidity('');
+        } else {
+          // Phone number is invalid
+          phoneInput.setCustomValidity('Please enter a 10-digit phone number.');
+        }
+      }
+    </script>
+   
     <%- include('../layout/user/footer.ejs')%>

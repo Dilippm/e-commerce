@@ -9,6 +9,9 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+
 <div class="container">
   <div class="pagetitle" style="margin-top: 100px;">
     <h1>Sales Report</h1>
@@ -18,10 +21,12 @@
   
   </div>
   <div id="date-filter">
-    <label for="start-date">Start Date:</label>
-    <input type="date" id="start-date">
-    <label for="end-date">End Date:</label>
-    <input type="date" id="end-date">
+    <!-- Add datepicker input fields to your HTML -->
+<label for="start-date">Start Date:</label>
+<input type="text" id="start-date" name="start-date" readonly>
+
+<label for="end-date">End Date:</label>
+<input type="text" id="end-date" name="end-date" readonly>
     <button class="btn btn-dark" id="filter-button">Filter</button>
   </div>
   
@@ -54,42 +59,38 @@
   </table>
 </div>
 <script>
- $(document).ready(function() {
-  $('#usertable').DataTable();
-
-  $('#filter-button').on('click', function() {
-    // Reset the filter
-    $('#table-body tr').show();
-    $('#no-data-row').remove();
-
-    const startDate = moment($('#start-date').val(), 'YYYY-MM-DD');
-    const endDate = moment($('#end-date').val(), 'YYYY-MM-DD');
-
-    $('#table-body tr').each(function(index, tr) {
-      const date = moment($(tr).find('td:first-child').text(), 'YYYY-MM-DD');
-      if (date.isValid() && date.isBetween(startDate, endDate, null, '[]')) {
-        $(tr).show();
-      } else {
-        $(tr).hide();
-      }
-    });
-
-    if ($('#table-body tr:visible').length == 0) {
-      $('#usertable').append('<tr id="no-data-row"><td colspan="4" class="text-center">No data available.</td></tr>');
-    }
-  });
-});
-
-
   $(document).ready(function() {
-    $('#usertable').DataTable();
-
-    $('#filter-button').on('click', function() {
-      calculateSummary();
-    });
-  });
-</script>
-
+   $('#usertable').DataTable();
+ 
+   $('#filter-button').on('click', function() {
+     // Reset the filter
+     $('#table-body tr').show();
+     $('#no-data-row').remove();
+ 
+     const startDate = moment($('#start-date').val(), 'YYYY-MM-DD');
+     const endDate = moment($('#end-date').val(), 'YYYY-MM-DD');
+ 
+     $('#table-body tr').each(function(index, tr) {
+       const date = moment($(tr).find('td:first-child').text(), 'YYYY-MM-DD');
+       if (date.isValid() && date.isBetween(startDate, endDate, null, '[]')) {
+         $(tr).show();
+       } else {
+         $(tr).hide();
+       }
+     });
+ 
+     if ($('#table-body tr:visible').length == 0) {
+       $('#usertable').append('<tr id="no-data-row"><td colspan="4" class="text-center">No data available.</td></tr>');
+     }
+   });
+ 
+   // Initialize datepicker input fields
+   $('#start-date, #end-date').datepicker({
+     dateFormat: 'yy-mm-dd',
+     maxDate: new Date() // Set maxDate to current date
+   });
+ });
+ </script>
 
 
 
