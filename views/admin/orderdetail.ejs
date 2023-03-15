@@ -88,7 +88,7 @@
                                                    
                                                      
                                                     <h4 class="product-price"><b style="color: blue;">Track Order:</b></h4>
-                                                    <p style="font-size: larger;"> <b style="color: rgb(165, 42, 149);">Pending:<%= orderdetails.date %></b></p>
+                                                    <p style="font-size: larger;"> <b style="color: rgb(165, 42, 149);">Processing:<%= orderdetails.date %></b></p>
                                                     <% for (let i = 0; i < orderdetails.orderStatus.length; i++) { %>
                                                         <% if (orderdetails.orderStatus[i].status === 'Cancelled') { %>
                                                             <p style="font-size: larger;"><b style="color:red;"><%= orderdetails.orderStatus[i].status %>: <%= orderdetails.orderStatus[i].date %></b></p>

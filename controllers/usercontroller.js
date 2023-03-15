@@ -33,43 +33,51 @@ const guest = async (req, res) => {
         const banners = await ads.find({})
         const users = false;
         const topSellingProducts = await order.aggregate([
-            { $unwind: "$product" },
-      
             {
-              $group: {
-                _id: "$product.productId",
-                orderedQuantities: { $push: "$product.quantity" },
-                totalRevenue: {
-                  $sum: { $multiply: ["$product.quantity", "$product.price"] },
-                },
-              },
-            },
-            {
-              $project: {
-                _id: 1,
-                totalQuantityOrdered: {
-                  $reduce: {
-                    input: "$orderedQuantities",
-                    initialValue: 0,
-                    in: { $add: ["$$value", "$$this"] },
-                  },
-                },
-                totalRevenue: 1,
-              },
-            },
-            {
-              $lookup: {
-                from: "products",
-                localField: "_id",
-                foreignField: "_id",
-                as: "product",
-              },
-            },
-            { $unwind: "$product" },
-            { $sort: { totalQuantityOrdered: -1 } },
-            { $limit: 10 }, // limit to top 10 products
-          ]);
-        res.render('homepage', {data, cat, users, banners,topSellingProducts})
+                $unwind: "$product"
+            }, {
+                $group: {
+                    _id: "$product.productId",
+                    orderedQuantities: {
+                        $push: "$product.quantity"
+                    },
+                    totalRevenue: {
+                        $sum: {
+                            $multiply: ["$product.quantity", "$product.price"]
+                        }
+                    }
+                }
+            }, {
+                $project: {
+                    _id: 1,
+                    totalQuantityOrdered: {
+                        $reduce: {
+                            input: "$orderedQuantities",
+                            initialValue: 0, in: {
+                                $add: ["$$value", "$$this"]
+                            }
+                        }
+                    },
+                    totalRevenue: 1
+                }
+            }, {
+                $lookup: {
+                    from: "products",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "product"
+                }
+            }, {
+                $unwind: "$product"
+            }, {
+                $sort: {
+                    totalQuantityOrdered: -1
+                }
+            }, {
+                $limit: 10
+            }, // limit to top 10 products
+        ]);
+        res.render('homepage', {data, cat, users, banners, topSellingProducts})
 
     } catch (error) {
         console.log(error.message);
@@ -86,44 +94,59 @@ const userHome = async (req, res) => {
             const use = await user.findOne({_id: id});
             const banners = await ads.find({})
             const topSellingProducts = await order.aggregate([
-                { $unwind: "$product" },
-          
                 {
-                  $group: {
-                    _id: "$product.productId",
-                    orderedQuantities: { $push: "$product.quantity" },
-                    totalRevenue: {
-                      $sum: { $multiply: ["$product.quantity", "$product.price"] },
-                    },
-                  },
-                },
-                {
-                  $project: {
-                    _id: 1,
-                    totalQuantityOrdered: {
-                      $reduce: {
-                        input: "$orderedQuantities",
-                        initialValue: 0,
-                        in: { $add: ["$$value", "$$this"] },
-                      },
-                    },
-                    totalRevenue: 1,
-                  },
-                },
-                {
-                  $lookup: {
-                    from: "products",
-                    localField: "_id",
-                    foreignField: "_id",
-                    as: "product",
-                  },
-                },
-                { $unwind: "$product" },
-                { $sort: { totalQuantityOrdered: -1 } },
-                { $limit: 10 }, // limit to top 10 products
-              ]);
+                    $unwind: "$product"
+                }, {
+                    $group: {
+                        _id: "$product.productId",
+                        orderedQuantities: {
+                            $push: "$product.quantity"
+                        },
+                        totalRevenue: {
+                            $sum: {
+                                $multiply: ["$product.quantity", "$product.price"]
+                            }
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        totalQuantityOrdered: {
+                            $reduce: {
+                                input: "$orderedQuantities",
+                                initialValue: 0, in: {
+                                    $add: ["$$value", "$$this"]
+                                }
+                            }
+                        },
+                        totalRevenue: 1
+                    }
+                }, {
+                    $lookup: {
+                        from: "products",
+                        localField: "_id",
+                        foreignField: "_id",
+                        as: "product"
+                    }
+                }, {
+                    $unwind: "$product"
+                }, {
+                    $sort: {
+                        totalQuantityOrdered: -1
+                    }
+                }, {
+                    $limit: 10
+                }, // limit to top 10 products
+            ]);
 
-            res.render('homepage', {data, cata, use, users, banners,topSellingProducts});
+            res.render('homepage', {
+                data,
+                cata,
+                use,
+                users,
+                banners,
+                topSellingProducts
+            });
 
         }
 
@@ -183,7 +206,7 @@ const verifySignup = async (req, res) => {
     } else if (req.body.name == '' || req.body.email == '' || req.body.password == '' || req.body.mobile == '') {
         res.render('signup', {message: "All fields are required"});
     } else {
-        // console.log('body'+req.body)
+    
         phonenumber = req.body.mobile;
         try {
 
@@ -213,7 +236,7 @@ const verifyOtp = async (req, res, next) => {
             .services('VA5d6b573510fb1b3d0f42fc7b41df4025')
             .verificationChecks
             .create({to: `+91${details.mobile}`, code: otp})
-        console.log('details' + details)
+       
         if (verifiedResponse.status === 'approved') {
             details.password = await bcrypt.hash(details.password, 10)
             const userdata = new user({
@@ -226,7 +249,7 @@ const verifyOtp = async (req, res, next) => {
 
             })
             const userData = await userdata.save();
-            // console.log() console.log("sss" + userData)
+          
             req.session.user = userData
             if (userData) {
                 res.redirect('/userhome');
@@ -477,10 +500,10 @@ const viewOrders = async (req, res) => {
             const userId = req.session.user_id;
             const userDetails = await user.findOne({_id: userId});
             const orderDetails = await order
-  .find({ userId: userId })
-  .populate('product.productId')
-  .sort({ date: -1 });
- 
+                .find({userId: userId})
+                .populate('product.productId')
+                .sort({date: -1});
+
             res.render('orderlist', {
                 users,
                 use: await user.findById(userId),
@@ -496,33 +519,54 @@ const viewOrders = async (req, res) => {
 };
 const cancelOrder = async (req, res) => {
     try {
-      const orderId = req.body.orderId;
-  
-      // Find the order to cancel
-      const orderToCancel = await order.findOne({_id: orderId}).populate('product.productId');
-  
-      // Update the order status and status field
-      orderToCancel.orderStatus.push({status: 'Cancelled', date: new Date()});
-      orderToCancel.status = "Cancelled";
-      await orderToCancel.save();
-  
-      // Update the quantity of products
-      for (let i = 0; i < orderToCancel.product.length; i++) {
-        await product.updateOne({_id: orderToCancel.product[i].productId}, {$inc: {quantity: orderToCancel.product[i].quantity}});
-      }
-  
-      // Update user's wallet balance if payment method is "wallet" or "UPI"
-      if (orderToCancel.paymentType && (orderToCancel.paymentType === "wallet" || orderToCancel.paymentType === "UPI")) {
-        await user.updateOne({_id: orderToCancel.userId}, {$inc: {wallet: orderToCancel.total}});
-      }
-  
-      res.send('Order cancelled successfully');
+        const orderId = req.body.orderId;
+
+        // Find the order to cancel
+        const orderToCancel = await order
+            .findOne({_id: orderId})
+            .populate('product.productId');
+
+        // Update the order status and status field
+        orderToCancel
+            .orderStatus
+            .push({status: 'Cancelled', date: new Date()});
+        orderToCancel.status = "Cancelled";
+        await orderToCancel.save();
+
+        // Update the quantity of products
+        for (let i = 0; i < orderToCancel.product.length; i++) {
+            await product.updateOne({
+                _id: orderToCancel
+                    .product[i]
+                    .productId
+            }, {
+                $inc: {
+                    quantity: orderToCancel
+                        .product[i]
+                        .quantity
+                }
+            });
+        }
+
+        // Update user's wallet balance if payment method is "wallet" or "UPI"
+        if (orderToCancel.paymentType && (orderToCancel.paymentType === "wallet" || orderToCancel.paymentType === "UPI")) {
+            await user.updateOne({
+                _id: orderToCancel.userId
+            }, {
+                $inc: {
+                    wallet: orderToCancel.total
+                }
+            });
+        }
+
+        res.send('Order cancelled successfully');
     } catch (error) {
-      console.log(error.message);
-      res.status(500).send('Error cancelling order');
+        console.log(error.message);
+        res
+            .status(500)
+            .send('Error cancelling order');
     }
-  };
-  
+};
 
 const orderDetails = async (req, res) => {
     try {
@@ -549,196 +593,203 @@ const orderDetails = async (req, res) => {
 
 }
 const allProductView = async (req, res) => {
-  try {
-    let pages =1
-    pages=req.query.page
-    //const page = parseInt(req.query.page) || 1; // current page, default to 1
-    const limit = 10; // number of products per page
-    //const startIndex = (page - 1) * limit; // starting index for the page
-   // const endIndex = page * limit; // ending index for the page
+    try {
+        let pages = 1
+        pages = req.query.page
+        //const page = parseInt(req.query.page) || 1;  current page, default to 1
+        const limit = 10; // number of products per page
+        // const startIndex = (page - 1) * limit;  starting index for the page const
+        // endIndex = page * limit;  ending index for the page
 
-    let id, users;
-    if (req.session.user_id) {
-      id = req.session.user_id;
-      users = true;
-    } else {
-      users = false;
+        let id,
+            users;
+        if (req.session.user_id) {
+            id = req.session.user_id;
+            users = true;
+        } else {
+            users = false;
+        }
+
+        const data = await product
+            .find()
+            .populate("category")
+            .limit(limit)
+            .skip((pages - 1) * limit)
+            .exec()
+
+        const cata = await category.find();
+
+        const use = await user.findOne({_id: id});
+
+        const topSellingProducts = await order.aggregate([
+            {
+                $unwind: "$product"
+            }, {
+                $group: {
+                    _id: "$product.productId",
+                    orderedQuantities: {
+                        $push: "$product.quantity"
+                    },
+                    totalRevenue: {
+                        $sum: {
+                            $multiply: ["$product.quantity", "$product.price"]
+                        }
+                    }
+                }
+            }, {
+                $project: {
+                    _id: 1,
+                    totalQuantityOrdered: {
+                        $reduce: {
+                            input: "$orderedQuantities",
+                            initialValue: 0, in: {
+                                $add: ["$$value", "$$this"]
+                            }
+                        }
+                    },
+                    totalRevenue: 1
+                }
+            }, {
+                $lookup: {
+                    from: "products",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "product"
+                }
+            }, {
+                $unwind: "$product"
+            }, {
+                $sort: {
+                    totalQuantityOrdered: -1
+                }
+            }, {
+                $limit: 10
+            }, // limit to top 10 products
+        ]);
+        const countproducts = await product
+            .find()
+            .countDocuments()
+        //const totalProducts = await product.countDocuments();
+        const countdata = Math.ceil(countproducts / limit); // calculate total number of pages
+
+        res.render("allproduct", {
+            data,
+            cata,
+            use,
+            users,
+            topSellingProducts,
+            currentPage: pages,
+            countproducts: countdata
+        });
+    } catch (error) {
+        console.log(error.message);
     }
-
-    const data = await product
-      .find()
-      .populate("category")
-      
-      .limit(limit)
-      .skip((pages-1)*limit)
-      .exec()
-
-    const cata = await category.find();
-
-    const use = await user.findOne({ _id: id });
-
-    const topSellingProducts = await order.aggregate([
-      { $unwind: "$product" },
-
-      {
-        $group: {
-          _id: "$product.productId",
-          orderedQuantities: { $push: "$product.quantity" },
-          totalRevenue: {
-            $sum: { $multiply: ["$product.quantity", "$product.price"] },
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          totalQuantityOrdered: {
-            $reduce: {
-              input: "$orderedQuantities",
-              initialValue: 0,
-              in: { $add: ["$$value", "$$this"] },
-            },
-          },
-          totalRevenue: 1,
-        },
-      },
-      {
-        $lookup: {
-          from: "products",
-          localField: "_id",
-          foreignField: "_id",
-          as: "product",
-        },
-      },
-      { $unwind: "$product" },
-      { $sort: { totalQuantityOrdered: -1 } },
-      { $limit: 10 }, // limit to top 10 products
-    ]);
-const countproducts=await product.find().countDocuments()
-    //const totalProducts = await product.countDocuments();
-    const countdata = Math.ceil(countproducts / limit); // calculate total number of pages
-
-    res.render("allproduct", {
-      data,
-      cata,
-      use,
-      users,
-      topSellingProducts,
-      currentPage: pages,
-      countproducts:countdata
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
 };
 
 const returnOrder = async (req, res) => {
     try {
-      if (req.session.user_id) {
-        //console.log(req.body);
-        if (req.body.one == undefined) {
-          res.json({ error: true });
-        } else {
-          const updateOrder = await order.updateOne(
-            { _id: req.body.order },
-            {
-              $set: {
-                returnReason: req.body.one,
-                status: "Return Pending",
-              },
+        if (req.session.user_id) {
+           
+            if (req.body.one == undefined) {
+                res.json({error: true});
+            } else {
+                const updateOrder = await order.updateOne({
+                    _id: req.body.order
+                }, {
+                    $set: {
+                        returnReason: req.body.one,
+                        status: "Return Pending"
+                    }
+                });
+              
+                res.json({status: true});
             }
-          );
-          //console.log(updateOrder);
-          res.json({ status: true });
+        } else {
+            res.redirect("/login");
         }
-      } else {
-        res.redirect("/login");
-      }
     } catch (error) {
-      console.log(error.message);
-      res.json({ error: true });
+        console.log(error.message);
+        res.json({error: true});
     }
-  };
-  const sortProductCategory= async(req,res)=>{
+};
+const sortProductCategory = async (req, res) => {
     try {
-    
 
         const selectedCategory = req.query.category;
-        if(selectedCategory==="all"){
+        if (selectedCategory === "all") {
             res.redirect('/products');
-        }else{
-          
-           
-            let id, users;
-    if (req.session.user_id) {
-       
-    
-      id = req.session.user_id;
-      users = true;
-    } else {
-      users = false;
-    }
-    const data = await product.find({ "category": req.query.category }).populate("category");
-   
-          
+        } else {
+
+            let id,
+                users;
+            if (req.session.user_id) {
+
+                id = req.session.user_id;
+                users = true;
+            } else {
+                users = false;
+            }
+            const data = await product
+                .find({"category": req.query.category})
+                .populate("category");
+
             const cata = await category.find();
 
-    const use = await user.findOne({ _id: id });
+            const use = await user.findOne({_id: id});
 
-    const topSellingProducts = await order.aggregate([
-      { $unwind: "$product" },
+            const topSellingProducts = await order.aggregate([
+                {
+                    $unwind: "$product"
+                }, {
+                    $group: {
+                        _id: "$product.productId",
+                        orderedQuantities: {
+                            $push: "$product.quantity"
+                        },
+                        totalRevenue: {
+                            $sum: {
+                                $multiply: ["$product.quantity", "$product.price"]
+                            }
+                        }
+                    }
+                }, {
+                    $project: {
+                        _id: 1,
+                        totalQuantityOrdered: {
+                            $reduce: {
+                                input: "$orderedQuantities",
+                                initialValue: 0, in: {
+                                    $add: ["$$value", "$$this"]
+                                }
+                            }
+                        },
+                        totalRevenue: 1
+                    }
+                }, {
+                    $lookup: {
+                        from: "products",
+                        localField: "_id",
+                        foreignField: "_id",
+                        as: "product"
+                    }
+                }, {
+                    $unwind: "$product"
+                }, {
+                    $sort: {
+                        totalQuantityOrdered: -1
+                    }
+                }, {
+                    $limit: 10
+                }, // limit to top 10 products
+            ]);
 
-      {
-        $group: {
-          _id: "$product.productId",
-          orderedQuantities: { $push: "$product.quantity" },
-          totalRevenue: {
-            $sum: { $multiply: ["$product.quantity", "$product.price"] },
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          totalQuantityOrdered: {
-            $reduce: {
-              input: "$orderedQuantities",
-              initialValue: 0,
-              in: { $add: ["$$value", "$$this"] },
-            },
-          },
-          totalRevenue: 1,
-        },
-      },
-      {
-        $lookup: {
-          from: "products",
-          localField: "_id",
-          foreignField: "_id",
-          as: "product",
-        },
-      },
-      { $unwind: "$product" },
-      { $sort: { totalQuantityOrdered: -1 } },
-      { $limit: 10 }, // limit to top 10 products
-    ]);
-
-    
-   
-            res.render("allproduct", {
-                data,
-                cata,
-                use,
-                users,
-                topSellingProducts,
-               
-            })
+            res.render("allproduct", {data, cata, use, users, topSellingProducts})
 
         }
     } catch (error) {
         console.log(error.message);
     }
-  }
+}
 module.exports = {
     guest,
     userHome,

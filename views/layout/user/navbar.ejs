@@ -1,103 +1,115 @@
+<!-- HEADER -->
+<header>
 
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
 
+            <ul class="header-links pull-right">
+                <% if(users==true){%>
+                    <div class="dropdown">
+                        <button
+                            class="btn dropdown-toggle"
+                            style="background-color: white;"
+                            type="button"
+                            id="accountDropdown"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fa fa-user-o"></i>
+                            <%=use.name%>
+                        </button>
+                        <ul
+                            class="dropdown-menu "
+                            aria-labelledby="accountDropdown"
+                            style="background-color: black;">
+                            <li>
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/logout">logout</a>
+                            </li>
 
-		<!-- HEADER -->
-		<header>
-			
-			<!-- TOP HEADER -->
-			<div id="top-header">
-				<div class="container">
-					
-					<ul class="header-links pull-right">
-						<% if(users== true){%>
-							<div class="dropdown">
-								<button class="btn dropdown-toggle" style="background-color: white;" type="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <i class="fa fa-user-o"></i> <%=use.name%>
-								</button>
-								<ul class="dropdown-menu " aria-labelledby="accountDropdown" style="background-color: black;">
-								  <li><a class="dropdown-item" href="/profile">Profile</a></li>
-								  <li><a class="dropdown-item" href="/logout">logout</a></li>
-								 
-								</ul>
-							  </div>
-							
+                        </ul>
+                    </div>
 
+                <%}else{%>
+                    <div class="dropdown">
+                        <button
+                            class="btn dropdown-toggle"
+                            style="background-color: white;"
+                            type="button"
+                            id="accountDropdown"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fa fa-user-o"></i>
+                            My Account
+                        </button>
+                        <ul
+                            class="dropdown-menu "
+                            aria-labelledby="accountDropdown"
+                            style="background-color: black;">
 
-						<%}else{%>
-							<div class="dropdown">
-								<button class="btn dropdown-toggle" style="background-color: white;" type="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  <i class="fa fa-user-o"></i> My Account
-								</button>
-								<ul class="dropdown-menu " aria-labelledby="accountDropdown" style="background-color: black;">
-								 
-								  <li><a class="dropdown-item" href="/login">login</a></li>
-								 
-								</ul>
-							  </div>
+                            <li>
+                                <a class="dropdown-item" href="/login">login</a>
+                            </li>
 
+                        </ul>
+                    </div>
 
-						<%}%>
+                <%}%>
 
+        </ul>
+    </div>
+</div>
+<!-- /TOP HEADER -->
 
+<!-- MAIN HEADER -->
+<div id="header">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- LOGO -->
+            <div class="col-md-3">
+                <div class="header-logo">
+                    <a href="#" class="logo">
+                        <img src="/img/logo.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <!-- /LOGO -->
 
+            <!-- SEARCH BAR -->
+            <div class="col-md-6">
+                <div class="header-search">
+                    <!-- <form> <input class="input" placeholder="Search here" > <button
+                    class="search-btn">Search</button> </form> -->
+                </div>
+            </div>
+            <!-- /SEARCH BAR -->
 
-						
-                          
-                        
-					</ul>
-				</div>
-			</div>
-			<!-- /TOP HEADER -->
+            <!-- ACCOUNT -->
+            <div class="col-md-3 clearfix">
+                <div class="header-ctn">
+                    <!-- Wishlist -->
+                    <div>
+                        <a href="/wishlist">
+                            <i class="fa fa-heart-o"></i>
+                            <span>Your Wishlist</span>
 
-			<!-- MAIN HEADER -->
-			<div id="header">
-				<!-- container -->
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<!-- LOGO -->
-						<div class="col-md-3">
-							<div class="header-logo">
-								<a href="#" class="logo">
-									<img src="/img/logo.png" alt="">
-								</a>
-							</div>
-						</div>
-						<!-- /LOGO -->
+                        </a>
+                    </div>
+                    <!-- /Wishlist -->
 
-						<!-- SEARCH BAR -->
-						<div class="col-md-6">
-							<div class="header-search">
-								<!-- <form>
-									
-									<input class="input" placeholder="Search here" >
-									<button class="search-btn">Search</button>
-								</form> -->
-							</div>
-						</div>
-						<!-- /SEARCH BAR -->
+                    <!-- Cart -->
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-shopping-cart"></i>
+                            <a href="/cart">your cart</a>
+                            <!-- <span>Your Cart</span> <div class="qty">3</div> -->
+                        </a>
 
-						<!-- ACCOUNT -->
-						<div class="col-md-3 clearfix">
-							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="/wishlist">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										
-									</a>
-								</div>
-								<!-- /Wishlist -->
-
-								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<a href="/cart">your cart</a> 
-										<!-- <span>Your Cart</span>
-										<div class="qty">3</div> -->
-									</a>
-									
-								</div>
-								<!-- /Cart -->
+                    </div>
+                    <!-- /Cart -->

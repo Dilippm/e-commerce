@@ -1,234 +1,245 @@
 <%- include('../layout/user/header.ejs')%>
-  <%- include('../layout/user/navbar.ejs')%>
+    <%- include('../layout/user/navbar.ejs')%>
 
-    <!-- Menu Toogle -->
-    <div class="menu-toggle">
-      <a href="#">
-        <i class="fa fa-bars"></i>
-        <span>Menu</span>
-      </a>
-    </div>
-    <!-- /Menu Toogle -->
-    </div>
-    </div>
-    <!-- /ACCOUNT -->
-    </div>
-    <!-- row -->
-    </div>
-    <!-- container -->
-    </div>
-    <!-- /MAIN HEADER -->
-    </header>
-    <!-- /HEADER -->
-
-    <!-- NAVIGATION -->
-    <nav id="navigation">
-      <!-- container -->
-      <div class="container">
-        <!-- responsive-nav -->
-        <div id="responsive-nav">
-          <!-- NAV -->
-          <ul class="main-nav nav navbar-nav">
-            <li class="active">
-              <a href="/">Home</a>
-            </li>
-
-          </ul>
-          <!-- /NAV -->
+        <!-- Menu Toogle -->
+        <div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
         </div>
-        <!-- /responsive-nav -->
-      </div>
-      <!-- /container -->
-    </nav>
-    <!-- /NAVIGATION -->
+        <!-- /Menu Toogle -->
+    </div>
+</div>
+<!-- /ACCOUNT -->
+</div>
+<!-- row -->
+</div>
+<!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
 
-    <!-- SECTION -->
-    <div class="section">
-      <!-- container -->
-      <div class="container">
-        <!-- row -->
-        <div>
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+<!-- responsive-nav -->
+<div id="responsive-nav">
+<!-- NAV -->
+<ul class="main-nav nav navbar-nav">
+<li class="active">
+    <a href="/">Home</a>
+</li>
 
-        
-        <div class="row">
-          <% for(let i=0; i<orderDetail.product.length; i++){ %>
-            <!-- Product main img -->
-            <div class="card" >
-            <div class="col-md-5 col-md-push-2">
-              <div id="product-main-img"  >
+</ul>
+<!-- /NAV -->
+</div>
+<!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- SECTION -->
+<div class="section">
+<!-- container -->
+<div class="container">
+<!-- row -->
+<div>
+
+<div class="row">
+<% for(let i=0; i<orderDetail.product.length; i++){ %>
+    <!-- Product main img -->
+    <div class="card">
+        <div class="col-md-5 col-md-push-2">
+            <div id="product-main-img">
                 <div class="product-preview">
-                  <img src="/productImages/<%=orderDetail.product[i].productId.images[0]%>" width="500px" height="500px"
-                    alt="">
+                    <img
+                        src="/productImages/<%=orderDetail.product[i].productId.images[0]%>"
+                        width="500px"
+                        height="500px"
+                        alt="">
                 </div>
 
-              </div>
             </div>
-            <!-- /Product main img -->
+        </div>
+        <!-- /Product main img -->
 
-            <!-- Product thumb imgs -->
-            <div class="col-md-2  col-md-pull-5">
-              <div id="product-imgs"></div>
-            </div>
-            <!-- /Product thumb imgs -->
+        <!-- Product thumb imgs -->
+        <div class="col-md-2  col-md-pull-5">
+            <div id="product-imgs"></div>
+        </div>
 
-            <!-- Product details -->
-            <div class="card">
-              <div class="col-md-5">
+        <!-- Product details -->
+        <div class="card">
+            <div class="col-md-5">
                 <div class="product-details">
-                  <h4 class="product-name">
-                    <b style="color: #D10024;">Order Id:</b>
-                  </h4>
-                  <p style="font-size: larger;">
-                    <b style="color: black;">
-                      <%= orderDetail.orderId%>
-                    </b>
-                  </p>
-
-                  <h4 class="product-name" style="color: #D10024;">
-                    <b>Product name:</b>
-                  </h4>
-                  <p style="font-size: larger;">
-                    <b>
-                      <%= orderDetail.product[i].productId.productName %>
-                    </b>
-                  </p>
-
-                  <div>
-                    <h4 class="product-price">
-                      <b>Total Price:</b>
+                    <h4 class="product-name">
+                        <b style="color: #D10024;">Order Id:</b>
                     </h4>
                     <p style="font-size: larger;">
-                      <b>₹
-                        <%= orderDetail.product[i].singleTotal %>
-                      </b>
-                    </p>
-
-                    <h4 class="product-price">
-                      <b>Quantity:</b>
-                    </h4>
-                    <p style="font-size: larger;">
-                      <b>
-                        <%= orderDetail.product[i].quantity %>
-                      </b>
-                    </p>
-                  </div>
-
-                  <% if(orderDetail.deliveryAddress.length> 0) { %>
-                    <h4 class="product-price">
-                      <b>Delivery Address:</b>
-                    </h4>
-                    <% for(let j=0; j<orderDetail.deliveryAddress.length; j++){ %>
-                      <p class="product-price" style="margin-bottom: 5px;font-size: larger; color: black; ">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <b>
-                          <%= orderDetail.deliveryAddress[j].houseName %>,
-                            <%= orderDetail.deliveryAddress[j].street %>,
-                              <%= orderDetail.deliveryAddress[j].district %>,
-                                <%= orderDetail.deliveryAddress[j].country %>
-                                  -
-                                  <%= orderDetail.deliveryAddress[j].pincode %>
-
+                        <b style="color: black;">
+                            <%= orderDetail.orderId%>
                         </b>
-                      </p>
-                      <% } %>
+                    </p>
+
+                    <h4 class="product-name" style="color: #D10024;">
+                        <b>Product name:</b>
+                    </h4>
+                    <p style="font-size: larger;">
+                        <b>
+                            <%= orderDetail.product[i].productId.productName %>
+                        </b>
+                    </p>
+
+                    <div>
+                        <h4 class="product-price">
+                            <b>Total Price:</b>
+                        </h4>
+                        <p style="font-size: larger;">
+                            <b>₹
+                                <%= orderDetail.product[i].singleTotal %>
+                            </b>
+                        </p>
+
+                        <h4 class="product-price">
+                            <b>Quantity:</b>
+                        </h4>
+                        <p style="font-size: larger;">
+                            <b>
+                                <%= orderDetail.product[i].quantity %>
+                            </b>
+                        </p>
+                    </div>
+
+                    <% if(orderDetail.deliveryAddress.length> 0) { %>
+                        <h4 class="product-price">
+                            <b>Delivery Address:</b>
+                        </h4>
+                        <% for(let j=0; j<orderDetail.deliveryAddress.length; j++){ %>
+                            <p
+                                class="product-price"
+                                style="margin-bottom: 5px;font-size: larger; color: black; ">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <b>
+                                    <%= orderDetail.deliveryAddress[j].houseName %>,
+                                    <%= orderDetail.deliveryAddress[j].street %>,
+                                    <%= orderDetail.deliveryAddress[j].district %>,
+                                    <%= orderDetail.deliveryAddress[j].country %>
+                                    -
+                                    <%= orderDetail.deliveryAddress[j].pincode %>
+
+                                </b>
+                            </p>
                         <% } %>
+                    <% } %>
 
-                          <h4 class="product-price">
-                            <b>Date of Purchase:</b>
-                          </h4>
-                          <% const dateObj=new Date(orderDetail.date); %>
-                            <p style="font-size: larger;">
-                              <b>
+                    <h4 class="product-price">
+                        <b>Date of Purchase:</b>
+                    </h4>
+                    <% const dateObj=new Date(orderDetail.date); %>
+                        <p style="font-size: larger;">
+                            <b>
                                 <%= dateObj.toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric' ,
-                                  month: 'long' , day: 'numeric' }) %>
-                              </b>
-                            </p>
+                                month: 'long' , day: 'numeric' }) %>
+                            </b>
+                        </p>
 
-                            <h4 class="product-price">
-                              <b>Current status:</b>
-                            </h4>
-                            <p style="font-size: larger;">
-                              <b>
+                        <h4 class="product-price">
+                            <b>Current status:</b>
+                        </h4>
+                        <p style="font-size: larger;">
+                            <b>
                                 <%= orderDetail.status %>
-                              </b>
-                            </p>
+                            </b>
+                        </p>
+                    </div>
                 </div>
-              </div>
             </div>
             <!-- /Product details -->
 
-            <% } %>
-            </div>
-            <div  style=" border: 1px solid #ccc; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);padding: 10px;" >
-              <h4 class="product-price">
-                <b style="color: #D10024;">Total Price:</b>
-              </h4>
-              <p style="font-size: larger;">
-                <b>
-                  <%= orderDetail.total %>
-                </b>
-              </p>
+        <% } %>
+    </div>
+    <div
+        style=" border: 1px solid #ccc; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);padding: 10px;">
+        <h4 class="product-price">
+            <b style="color: #D10024;">Total Price:</b>
+        </h4>
+        <p style="font-size: larger;">
+            <b>
+                <%= orderDetail.total %>
+            </b>
+        </p>
 
-              <button class="btn btn-primary">
-                <a href="/orderlist" style="color: whitesmoke;">Back</a>
-              </button>
+        <button class="btn btn-primary">
+            <a href="/orderlist" style="color: whitesmoke;">Back</a>
+        </button>
 
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                Track Order
-              </button>
+        <button
+            type="button"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#exampleModal">
+            Track Order
+        </button>
 
-            </div>
+    </div>
 
-              
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal -->
+    <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <h4 class="product-price">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="product-price">
                         <b style="color: blue;">Track Order:</b>
-                      </h4>
-                      <p style="font-size: larger;">
-                        <b style="color: brown;">Pending:<%= orderDetail.date %></b>
-                      </p>
-                      <% for (let i=0; i < orderDetail.orderStatus.length; i++) { %>
-                        <% if (orderDetail.orderStatus[i].status==='cancel' ) { %>
-                          <% const dateObj1=new Date(orderDetail.orderStatus[i].date); %>
-                            <p style="font-size: larger;">
-                              <b style="color:red;">
-                                <%= orderDetail.orderStatus[i].status %>:
-                                  <%= dateObj1.toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric' ,
-                                    month: 'long' , day: 'numeric' }) %>
-                              </b>
-                            </p>
-                            <% } else { %>
-                              <% const dateObj1=new Date(orderDetail.orderStatus[i].date); %>
+                    </h4>
+                    <p style="font-size: larger;">
+                        <b style="color: brown;">Processing:<%= orderDetail.date %></b>
+                    </p>
+                    <% for (let i=0; i < orderDetail.orderStatus.length; i++) { %>
+                        <% if (orderDetail.orderStatus[i].status==='Cancelled' ) { %>
+                            <% const dateObj1=new Date(orderDetail.orderStatus[i].date); %>
                                 <p style="font-size: larger;">
-                                  <b style="color:black;">
-                                    <%= orderDetail.orderStatus[i].status %>:
-                                      <%= orderDetail.orderStatus[i].status %>:
+                                    <b style="color:red;">
+                                        <%= orderDetail.orderStatus[i].status %>:
                                         <%= dateObj1.toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric' ,
-                                          month: 'long' , day: 'numeric' }) %>
-                                  </b>
+                                        month: 'long' , day: 'numeric' }) %>
+                                    </b>
                                 </p>
+                            <% } else { %>
+                                <% const dateObj1=new Date(orderDetail.orderStatus[i].date); %>
+                                    <p style="font-size: larger;">
+                                        <b style="color:black;">
+                                            <%= orderDetail.orderStatus[i].status %>:
+                                            <%= orderDetail.orderStatus[i].status %>:
+                                            <%= dateObj1.toLocaleDateString('en-US', { weekday: 'long' , year: 'numeric' ,
+                                            month: 'long' , day: 'numeric' }) %>
+                                        </b>
+                                    </p>
                                 <% } %>
 
-                                  <% } %>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <% } %>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
 
-              <%- include('../layout/user/footer.ejs')%>
+            <%- include('../layout/user/footer.ejs')%>

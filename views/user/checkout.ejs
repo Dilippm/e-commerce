@@ -57,8 +57,8 @@
 <div class="container">
 
 <!-- row -->
-<% if(typeof userdetails!=='undefined'){ %>
-<% if(typeof datas!=='undefined'){ %>
+<% if(typeof userdetails!=='undefined' ){ %>
+<% if(typeof datas!=='undefined' ){ %>
     <div class="row">
 
         <div class="col-md-7">
@@ -68,7 +68,7 @@
                     <h3 class="title">Shipping address</h3>
                 </div>
 
-                <% if(addressDetails.length > 0) { %>
+                <% if(addressDetails.length> 0) { %>
                     <h4 style="margin-bottom: 20px;">Select shipping address:</h4>
                     <% for(var i=0; i<addressDetails.length; i++) { %>
                         <div class="form-check" style="padding: 20px;">
@@ -124,8 +124,11 @@
                     <input type="hidden" name="proId" value="<%= key.product._id %>">
                     <div class="order-products">
                         <div class="order-col">
-                            <div><%= key.product.productName %></div>
-                            <div style="padding-left: 300px;">₹.<%=key.productTotalPrice %></div>
+                            <div>
+                                <%= key.product.productName %>
+                            </div>
+                            <div style="padding-left: 300px;">₹.<%=key.productTotalPrice %>
+                            </div>
 
                             <input type="hidden" name="proQ" value="  <%=key.quantity %>">
                             <input type="hidden" name="qntyPrice" value="<%=key.productTotalPrice %>">
@@ -174,7 +177,8 @@
                     </div>
                     <div>
                         <strong id="total" class="order-total">₹.
-                            <%= datas.totalPrice %></strong>
+                            <%= datas.totalPrice %>
+                        </strong>
                     </div>
 
                     <input type="hidden" id="total1" name="total1" value="<%=datas.totalPrice %>">
@@ -250,73 +254,103 @@
 <!-- /SECTION -->
 <!-- FOOTER -->
 <footer id="footer">
-    <!-- top footer -->
-    <div class="section">
-      <!-- container -->
-      <div class="container-fluid" style="margin: 0;">
-        <!-- row -->
-        <div class="row">
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">About Us</h3>
-              <p>We sell the best!!!</p>
-              <ul class="footer-links">
-                <li><a href="#"><i class="fa fa-map-marker"></i>Kakkanchery, Malappuram</a></li>
-                <li><a href="#"><i class="fa fa-phone"></i>9990009900</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i>electro@gmail.com</a></li>
-              </ul>
-            </div>
-          </div>
-  
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">Categories</h3>
-              <ul class="footer-links">
-              
-                <li><a href="/products">Laptops</a></li>
-                <li><a href="/products">Smartphones</a></li>
-            
-              </ul>
-            </div>
-          </div>
-  
-          <div class="clearfix visible-xs"></div>
-  
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">Information</h3>
-              <ul class="footer-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="/orderlist">Orders and Returns</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
-              </ul>
-            </div>
-          </div>
-  
-          <div class="col-md-3 col-xs-6">
-            <div class="footer">
-              <h3 class="footer-title">Service</h3>
-              <ul class="footer-links">
-                <li><a href="/profile">My Account</a></li>
-                <li><a href="/cart">View Cart</a></li>
-                <li><a href="/wishlist">Wishlist</a></li>
-                <li><a href="/orderlist">Track My Order</a></li>
-               
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- /row -->
-      </div>
-      <!-- /container -->
-    </div>
-    <!-- /top footer -->
-  
-  
-  </footer>
-  <!-- /FOOTER -->
+<!-- top footer -->
+<div class="section">
+<!-- container -->
+<div class="container-fluid" style="margin: 0;">
+<!-- row -->
+<div class="row">
+<div class="col-md-3 col-xs-6">
+<div class="footer">
+    <h3 class="footer-title">About Us</h3>
+    <p>We sell the best!!!</p>
+    <ul class="footer-links">
+        <li>
+            <a href="#">
+                <i class="fa fa-map-marker"></i>Kakkanchery, Malappuram</a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-phone"></i>9990009900</a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-envelope-o"></i>electro@gmail.com</a>
+        </li>
+    </ul>
+</div>
+</div>
+
+<div class="col-md-3 col-xs-6">
+<div class="footer">
+    <h3 class="footer-title">Categories</h3>
+    <ul class="footer-links">
+
+        <li>
+            <a href="/products">Laptops</a>
+        </li>
+        <li>
+            <a href="/products">Smartphones</a>
+        </li>
+
+    </ul>
+</div>
+</div>
+
+<div class="clearfix visible-xs"></div>
+
+<div class="col-md-3 col-xs-6">
+<div class="footer">
+    <h3 class="footer-title">Information</h3>
+    <ul class="footer-links">
+        <li>
+            <a href="#">About Us</a>
+        </li>
+        <li>
+            <a href="#">Contact Us</a>
+        </li>
+        <li>
+            <a href="#">Privacy Policy</a>
+        </li>
+        <li>
+            <a href="/orderlist">Orders and Returns</a>
+        </li>
+        <li>
+            <a href="#">Terms & Conditions</a>
+        </li>
+    </ul>
+</div>
+</div>
+
+<div class="col-md-3 col-xs-6">
+<div class="footer">
+    <h3 class="footer-title">Service</h3>
+    <ul class="footer-links">
+        <li>
+            <a href="/profile">My Account</a>
+        </li>
+        <li>
+            <a href="/cart">View Cart</a>
+        </li>
+        <li>
+            <a href="/wishlist">Wishlist</a>
+        </li>
+        <li>
+            <a href="/orderlist">Track My Order</a>
+        </li>
+
+    </ul>
+</div>
+</div>
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /top footer -->
+
+</footer>
+<!-- /FOOTER -->
 
 <script>
 function updateDeliveryAddress(address) {
@@ -337,15 +371,14 @@ code: code
 method: "post",
 success: (response) => {
 if (response.datefailed) {
-//console.log("failed to match");
+
 Swal.fire({icon: 'error', title: 'Oops...', text: 'Coupon Expired.'})
 } else if (response.amountnokay) {
-//console.log("pattilla");
+
 Swal.fire(
     {icon: 'error', title: 'Oops...', text: 'To access this coupen buy something more.'}
 )
 } else if (response.amountokay) {
-//console.log("vangaam") console.log("ooookayyy");
 
 $('#code').html(response.code)
 $('#discount').html(response.discountValue)
@@ -355,8 +388,6 @@ $('#total1').attr({value: response.value})
 $('#copcode').attr({value: response.code})
 
 Swal.fire('Good job!', 'Coupen granted!', 'success')
-// console.log("ttttt" + response.value); console.log("dissss" +
-// response.discountValue);
 
 } else if (response.used) {
 Swal.fire({icon: 'error', title: 'Oops...', text: 'Already Used.'})
@@ -376,9 +407,7 @@ url: '/checkout', // replace with the URL of your server-side script
 type: 'POST', // use POST method
 data: formData,
 success: (response) => {
-// handle the response from the server
-//console.log("yes")
-//console.log(response);
+// handle the response from the server console.log("yes") console.log(response);
 if (response.status) {
 location.href = '/success'
 } else if (response.radio) {

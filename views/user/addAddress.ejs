@@ -1,20 +1,15 @@
-
 <%- include('../layout/user/header.ejs')%>
-<%- include('../layout/user/navbar.ejs')%>
+    <%- include('../layout/user/navbar.ejs')%>
 
-
-
-
-
-<!-- Menu Toogle -->
-<div class="menu-toggle">
-    <a href="#">
-        <i class="fa fa-bars"></i>
-        <span>Menu</span>
-    </a>
-</div>
-<!-- /Menu Toogle -->
-</div>
+        <!-- Menu Toogle -->
+        <div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
+        </div>
+        <!-- /Menu Toogle -->
+    </div>
 </div>
 <!-- /ACCOUNT -->
 </div>
@@ -34,10 +29,9 @@
 <div id="responsive-nav">
 <!-- NAV -->
 <ul class="main-nav nav navbar-nav">
-<li class="active"><a href="/">Home</a></li>
-
-
-
+<li class="active">
+    <a href="/">Home</a>
+</li>
 
 </ul>
 <!-- /NAV -->
@@ -48,148 +42,172 @@
 </nav>
 <!-- /NAVIGATION -->
 
-
-
 <main id="main" class="main">
 
-  
-    
-    <section class="vh-100 gradient-custom">
-        <div  class="container py-5 h-100">
-          <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                <div class="card-body p-4 p-md-5">
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 mt-4">Add New Address</h3>
-                  <form action="/addAddress" method="post">
-                    <div class="row">
-                      <div class="col-md-12 mb-4">
-      
+<section class="vh-100 gradient-custom">
+<div class="container py-5 h-100">
+<div class="row justify-content-center align-items-center h-100">
+<div class="col-12 col-lg-9 col-xl-7">
+    <div
+        class="card shadow-2-strong card-registration"
+        style="border-radius: 15px;">
+        <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 mt-4">Add New Address</h3>
+            <form action="/addAddress" method="post">
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+
                         <div class="form-outline">
-                          <input type="text" name="name" class="form-control form-control-lg" required />
-                          <label class="form-label">name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label">name</label>
                         </div>
-      
-                      </div>
-                      <div class="col-md-12 mb-4">
-      
-                        <div class="form-outline">
-                          <input type="text"   name="hname" class="form-control form-control-lg" required />
-                          <label class="form-label">House Name</label>
-                        </div>
-      
-                      </div>
-                    
-                      <div class="col-md-6 mb-4">
-      
-                        <div class="form-outline">
-                          <input type="text"  name="street" class="form-control form-control-lg" required />
-                          <label class="form-label">Street</label>
-                        </div>
-      
-                      </div>
-                      <div class="col-md-6 mb-4">
-      
-                        <div class="form-outline">
-                          <input type="text"  name="district" class="form-control form-control-lg" required />
-                          <label class="form-label">District</label>
-                        </div>
-          
-                      </div>
+
                     </div>
-      
-                    <div class="row">
-                      <div class="col-md-6 mb-4 d-flex align-items-center">
-      
-                        <div class="form-outline datepicker w-100">
-                          <input type="text" name="state" class="form-control form-control-lg" id="birthdayDate" required />
-                          <label  class="form-label">State</label>
-                        </div>
-      
-                      </div>
-                     
-                      <div class="col-md-6 mb-4 pb-2">
-      
+                    <div class="col-md-12 mb-4">
+
                         <div class="form-outline">
-                          <input type="text"  name="country" class="form-control form-control-lg" required />
-                          <label class="form-label" >Country</label>
+                            <input
+                                type="text"
+                                name="hname"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label">House Name</label>
                         </div>
-      
-                      </div>
+
                     </div>
-                      
-                    
-                    <div class="row">
-                      <div class="col-md-6 mb-4 pb-2">
-      
+
+                    <div class="col-md-6 mb-4">
+
                         <div class="form-outline">
-                          <input type="Number" id="pincode" name="pincode" class="form-control form-control-lg" />
-                          <label class="form-label">pincode</label>
+                            <input
+                                type="text"
+                                name="street"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label">Street</label>
                         </div>
-      
-                      </div>
-                      <div class="col-md-6 mb-4 pb-2">
+
+                    </div>
+                    <div class="col-md-6 mb-4">
+
                         <div class="form-outline">
-                          <input type="text" id="phone" name="number" class="form-control form-control-lg" required />
-                          <label class="form-label" for="phone">Phone Number</label>
+                            <input
+                                type="text"
+                                name="district"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label">District</label>
                         </div>
-      
-                      </div>
+
                     </div>
-      
-                   
-      
-                    <div class="mt-4 pt-2">
-                      <input class="btn btn-success btn-lg" type="submit" value="Submit" >
-                     
-                    </div>
-      
-                  </form>
                 </div>
-              </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                        <div class="form-outline datepicker w-100">
+                            <input
+                                type="text"
+                                name="state"
+                                class="form-control form-control-lg"
+                                id="birthdayDate"
+                                required="required"/>
+                            <label class="form-label">State</label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 mb-4 pb-2">
+
+                        <div class="form-outline">
+                            <input
+                                type="text"
+                                name="country"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label">Country</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+
+                        <div class="form-outline">
+                            <input
+                                type="Number"
+                                id="pincode"
+                                name="pincode"
+                                class="form-control form-control-lg"/>
+                            <label class="form-label">pincode</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                            <input
+                                type="text"
+                                id="phone"
+                                name="number"
+                                class="form-control form-control-lg"
+                                required="required"/>
+                            <label class="form-label" for="phone">Phone Number</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    <input class="btn btn-success btn-lg" type="submit" value="Submit"></div>
+
+                </form>
             </div>
-          </div>
         </div>
-      </section>
+    </div>
+</div>
+</div>
+</section>
 
-  
-
-   
-    </main><!-- End #main -->
-    <script>
-      const pincodeInput = document.getElementById('pincode');
+</main>
+<!-- End #main -->
+<script>
+const pincodeInput = document.getElementById('pincode');
 const pincodePattern = /^\d{6}$/;
 
-pincodeInput.addEventListener('input', function() {
-  const isValidPincode = pincodePattern.test(pincodeInput.value);
+pincodeInput.addEventListener('input', function () {
+const isValidPincode = pincodePattern.test(pincodeInput.value);
 
-  if (!isValidPincode) {
-    pincodeInput.setCustomValidity('Please enter a valid 6-digit pincode');
-  } else {
-    pincodeInput.setCustomValidity('');
-  }
+if (!isValidPincode) {
+pincodeInput.setCustomValidity('Please enter a valid 6-digit pincode');
+} else {
+pincodeInput.setCustomValidity('');
+}
+});
+</script>
+<script>
+var phoneInput = document.getElementById("phone");
+
+phoneInput.addEventListener("blur", function () {
+validatePhoneNumber();
 });
 
-    </script>
-    <script>
-      var phoneInput = document.getElementById("phone");
-    
-      phoneInput.addEventListener("blur", function() {
-        validatePhoneNumber();
-      });
-    
-      function validatePhoneNumber() {
-        var phoneValue = phoneInput.value;
-        var phoneRegex = /^\d{10}$/; // Regular expression to match 10 digits
-    
-        if (phoneRegex.test(phoneValue)) {
-          // Phone number is valid
-          phoneInput.setCustomValidity('');
-        } else {
-          // Phone number is invalid
-          phoneInput.setCustomValidity('Please enter a 10-digit phone number.');
-        }
-      }
-    </script>
-   
-    <%- include('../layout/user/footer.ejs')%>
+function validatePhoneNumber() {
+var phoneValue = phoneInput.value;
+var phoneRegex = /^\d{10}$/; // Regular expression to match 10 digits
+
+if (phoneRegex.test(phoneValue)) {
+// Phone number is valid
+phoneInput.setCustomValidity('');
+} else {
+// Phone number is invalid
+phoneInput.setCustomValidity('Please enter a 10-digit phone number.');
+}
+}
+</script>
+
+<%- include('../layout/user/footer.ejs')%>

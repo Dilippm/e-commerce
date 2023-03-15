@@ -13,7 +13,8 @@
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">User Login</span>
                 </a>
-              </div><!-- End Logo -->
+              </div>
+              <!-- End Logo -->
 
               <div class="card mb-3">
 
@@ -23,22 +24,21 @@
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                     <p class="text-center small">Enter your email & password to login</p>
                   </div>
-                 
 
-                  <form class="row g-3 needs-validation" novalidate method="post" action="">
+                  <form class="row g-3 needs-validation" novalidate="novalidate" method="post" action="">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
 
-                        <input type="email" name="email" class="form-control" id="yourUsername" required>
+                        <input type="email" name="email" class="form-control" id="yourUsername" required="required">
                         <div class="invalid-feedback">Please enter your email.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required="required">
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
@@ -52,23 +52,22 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                        <li><a href="/register" style="color: blue;">Dont have account? Please login</a></li>
-                      </div>
-                   
-                  </form>
-                  <%
-                    if(typeof message!== 'undefined'){
-                      %>
-                      <h4 style=" color: red;"><i><%= message %></i></h4>
-                      <%
+                      <li>
+                        <a href="/register" style="color: blue;">Dont have account? Please login</a>
+                      </li>
+                    </div>
 
-                    }
-                  %>
+                  </form>
+                  <% if(typeof message!=='undefined' ){ %>
+                    <h4 style=" color: red;">
+                      <i>
+                        <%= message %>
+                      </i>
+                    </h4>
+                    <% } %>
 
                 </div>
               </div>
-
-
 
             </div>
           </div>
@@ -77,9 +76,11 @@
       </section>
 
     </div>
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <%- include('../layout/admin/footer.ejs')%>

@@ -13,7 +13,8 @@
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">Register</span>
                 </a>
-              </div><!-- End Logo -->
+              </div>
+              <!-- End Logo -->
 
               <div class="card mb-3">
 
@@ -21,65 +22,56 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Register to Your Account</h5>
-                    
-                  </div>
-                 
 
-                  <form class="row g-3 needs-validation" novalidate method="post" action="">
+                  </div>
+
+                  <form class="row g-3 needs-validation" novalidate="novalidate" method="post" action="">
                     <div class="col-12">
-                        <label for="yourUsername" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-  
-                          <input type="text" name="name" class="form-control" id="yourUsername" required>
-                          <div class="invalid-feedback">Please enter your username</div>
-                        </div>
+                      <label for="yourUsername" class="form-label">Username</label>
+                      <div class="input-group has-validation">
+
+                        <input type="text" name="name" class="form-control" id="yourUsername" required="required">
+                        <div class="invalid-feedback">Please enter your username</div>
                       </div>
+                    </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
 
-                        <input type="email" name="email" class="form-control" id="yourUsername" required>
+                        <input type="email" name="email" class="form-control" id="yourUsername" required="required">
                         <div class="invalid-feedback">Please enter your email.</div>
                       </div>
                     </div>
                     <div class="col-12">
-                        <label for="yourPassword" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="yourPassword" required>
-                        <div class="invalid-feedback">Please enter your password!</div>
-                      </div>
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required="required">
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">mobile</label>
-                      <input type="string" name="mobile" class="form-control" id="yourPassword" required>
+                      <input type="string" name="mobile" class="form-control" id="yourPassword" required="required">
                       <div class="invalid-feedback">Please enter your Mobile no.</div>
                     </div>
 
-                    
-
-                    
                     <div class="col-12 ">
                       <button class="btn btn-primary w-100 mb-3" type="submit">Signup</button>
-                      
-                    
-                    </div>
-                    
-                   
-                  </form>
-                 
-                  <%
-                    if(typeof message!== 'undefined'){
-                      %>
-                      <h4 style=" color: red;"><i><%= message %></i></h4>
-                      <%
 
-                    }
-                  %>
+                    </div>
+
+                  </form>
+
+                  <% if(typeof message!=='undefined' ){ %>
+                    <h4 style=" color: red;">
+                      <i>
+                        <%= message %>
+                      </i>
+                    </h4>
+                    <% } %>
 
                 </div>
               </div>
-
-
 
             </div>
           </div>
@@ -88,10 +80,11 @@
       </section>
 
     </div>
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-     
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <%- include('../layout/admin/footer.ejs')%>

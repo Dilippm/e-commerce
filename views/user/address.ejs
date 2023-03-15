@@ -1,16 +1,15 @@
 <%- include('../layout/user/header.ejs')%>
-<%- include('../layout/user/navbar.ejs')%>
+    <%- include('../layout/user/navbar.ejs')%>
 
-
-<!-- Menu Toogle -->
-<div class="menu-toggle">
-    <a href="#">
-        <i class="fa fa-bars"></i>
-        <span>Menu</span>
-    </a>
-</div>
-<!-- /Menu Toogle -->
-</div>
+        <!-- Menu Toogle -->
+        <div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
+        </div>
+        <!-- /Menu Toogle -->
+    </div>
 </div>
 <!-- /ACCOUNT -->
 </div>
@@ -30,10 +29,9 @@
 <div id="responsive-nav">
 <!-- NAV -->
 <ul class="main-nav nav navbar-nav">
-<li class="active"><a href="/">Home</a></li>
-
-
-
+<li class="active">
+    <a href="/">Home</a>
+</li>
 
 </ul>
 <!-- /NAV -->
@@ -44,47 +42,40 @@
 </nav>
 <!-- /NAVIGATION -->
 
-
-
 <main id="main" class="main">
 
-    <section style="background-color: #ffffff;">
-        <div class="container py-5">
-          <div class="row">
-            <div class="col">
-              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                <ol class="breadcrumb mb-0">
-               
-                </ol>
-              </nav>
+<section style="background-color: #ffffff;">
+<div class="container py-5">
+<div class="row">
+<div class="col">
+    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+        <ol class="breadcrumb mb-0"></ol>
+    </nav>
+</div>
+</div>
+
+</div>
+
+<div class="col-lg-8 container-fluid">
+<button type="button" class="btn btn-primary ms-1">
+<a href="/addAddress" style="color: white;">Add Address</a>
+</button>
+
+<div class="card mb-4 pt-5" style="margin-top: 20px;">
+<div class="card-body">
+
+    <% datas.address.forEach((element,index)=>{ %>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <p class="mb-0">
+                    <strong>Address
+                        <%=index+1 %></strong>
+                </p>
             </div>
-          </div>
-        
-              
-            </div>
-          
-         
-           
-           
-            <div class="col-lg-8 container-fluid">
-              <button type="button" class="btn btn-primary ms-1"><a href="/addAddress" style="color: white;">Add Address</a></button>
-     
-              <div class="card mb-4 pt-5" style="margin-top: 20px;">
-                <div class="card-body">
-                 
-    
-                 
-                    
-                
-                <% datas.address.forEach((element,index)=>{ %>
-                 
-                 
-                  <div class="row">
-                    <div class="col-sm-2">
-                      <p class="mb-0"> <strong>Address <%=index+1 %></strong> </p>
-                    </div>
-                    <div class="col-sm-7">
-                      <p class="text-muted mb-0"> <b>
+            <div class="col-sm-7">
+                <p class="text-muted mb-0">
+                    <b>
                         <%=element.name %>,
                         <%=element.houseName %>,
                         <%=element.street %>,
@@ -94,38 +85,39 @@
                         <%=element.pincode %>,
                         <%=element.phone %>,
 
-                      </b>
-                      
-                      </p>
-                    </div>
-                    <div class="col-sm-2">
-                      <button class="btn btn-danger"> <a style="color: white" a  href="/removeAddress/<%=element._id %>">Remove</a></button>
-                     
-                    </div>
-                    <div class="col-sm-1">
-                      <button class="btn btn-warning"><a style="color: black" href="/editAddress/<%=element._id %>">Edit</a></button>
-                      
-                    </div>
-                  </div>
-                  <hr>
-              <%}) %>
-                 </div>
-                  </div>
-                </div>
-              </div>
-            
-              </div>
+                    </b>
+
+                </p>
             </div>
-           
-          </div>
+            <div class="col-sm-2">
+                <button class="btn btn-danger">
+                    <a style="color: white" a="a" href="/removeAddress/<%=element._id %>">Remove</a>
+                </button>
+
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-warning">
+                    <a style="color: black" href="/editAddress/<%=element._id %>">Edit</a>
+                </button>
+
+            </div>
         </div>
-    
-        
-      </section>
+        <hr>
+        <%}) %>
+        </div>
+    </div>
+</div>
+</div>
 
+</div>
+</div>
 
-  
+</div>
+</div>
 
-    </main><!-- End #main -->
+</section>
+
+</main>
+<!-- End #main -->
 
 <%- include('../layout/user/footer.ejs')%>

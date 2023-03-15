@@ -7,70 +7,89 @@ const moment = require('moment');
 
 //Renders the admin login page
 const adminRegister = async (req, res) => {
-  try {
-      // Render the admin login page
-      res.render('adminlogin');
+    try {
+        // Render the admin login page
+        res.render('adminlogin');
 
-  } catch (error) {
-      // Log any errors that occur
-      console.log(error.message);
-  }
+    } catch (error) {
+        // Log any errors that occur
+        console.log(error.message);
+    }
 }
-
+// verify admin login
 const verifylogin = async (req, res) => {
     try {
+        // Extract the email and password properties from the request body
         const email = req.body.email
         const password = req.body.password
 
-        const adminData = await admin.findOne({email: email, password: password});
+        // Find an admin in the database with the matching email and password
+        const adminData = await admin.findOne({ email: email, password: password });
 
+        // If an admin is found, set the admin_id property in the session to the admin's
+        // _id and redirect to the admin dashboard
         if (adminData) {
-
             req.session.admin_id = adminData._id;
-            res.redirect('/admin/dashboard')
+            res.redirect(
+                '/admin/dashboard' // If an admin is not found, render the admin login page with an error message
+            )
         } else {
-            res.render('adminlogin', {message: "invalid email or password"})
+            res.render('adminlogin', { message: "invalid email or password" })
         }
 
     } catch (error) {
+        // Log any errors that occur
         console.log(error.message)
     }
 }
+//loading the dashboard page
 const loadDashboard = async (req, res) => {
     try {
+        // Fetch all categories
         const categoryData = await Category.find({});
+
+      
+
+        // Fetch all products and populate their category field
         const productData = await Product
             .find({})
             .populate('category')
             .exec();
 
+        // Count the number of orders with a status of 'Delivered'
         const salesCount = await Order
-            .find({status: "Delivered"})
+            .find({ status: "Delivered" })
             .count();
+
+        // Count the total number of users in the system
         const totalUsers = await User
             .find({})
             .count();
+
+        // Calculate the total revenue generated in the last week from all delivered
+        // orders
         const weeklyRevenue = await Order.aggregate([
             {
                 $match: {
                     date: {
-                        $gte: new Date(new Date().setDate(new Date().getDate() - 7))
+                        $gte: new Date(new Date().setDate(new Date().getDate() - 7)) // Find orders from the last 7 days
                     }
                 }
             }, {
                 $match: {
-                    status: 'Delivered'
+                    status: 'Delivered' // Only consider delivered orders
                 }
             }, {
                 $group: {
                     _id: null,
                     totalAmount: {
-                        $sum: '$total'
+                        $sum: '$total' // Sum the total field of all matching orders
                     }
                 }
             }
         ]);
 
+        // Find all users who signed up in the last week
         const lastWeek = new Date();
         lastWeek.setDate(lastWeek.getDate() - 7);
         const usersForTheLastWeek = await User.find({
@@ -79,6 +98,7 @@ const loadDashboard = async (req, res) => {
             }
         });
 
+        // Aggregate order data to create a chart of sales over the last 7 days
         const salesChart = await Order.aggregate([
             {
                 $group: {
@@ -89,7 +109,7 @@ const loadDashboard = async (req, res) => {
                         }
                     },
                     sales: {
-                        $sum: '$total'
+                        $sum: '$total' // Sum the total field of all orders for each day
                     }
                 }
             }, {
@@ -97,44 +117,45 @@ const loadDashboard = async (req, res) => {
                     _id: 1
                 }
             }, {
-                $limit: 7
+                $limit: 7 // Limit the results to the last 7 days
             }
         ]);
 
+        // Extract the sales and date fields from the chart data
         const date = salesChart.map((item) => {
             return item._id;
         });
-
+        // Get the sales data for the sales chart
         const sales = salesChart.map((item) => {
             return item.sales;
         });
 
         const pending = await Order
-            .find({status: 'Pending'})
+            .find({ status: 'Pending' })
             .count();
         const processing = await Order
-            .find({status: 'Processing'})
+            .find({ status: 'Processing' })
             .count();
         const delivered = await Order
-            .find({status: 'Delivered'})
+            .find({ status: 'Delivered' })
             .count();
         const shipped = await Order
-            .find({status: 'Shipped'})
+            .find({ status: 'Shipped' })
             .count();
         const cancelled = await Order
-            .find({status: 'Cancelled'})
+            .find({ status: 'Cancelled' })
             .count();
         const Returned = await Order
-            .find({status: 'Retrun Pending'})
+            .find({ status: 'Return Pending' })
             .count();
         const UPI = await Order
-            .find({paymentType: 'UPI'})
+            .find({ paymentType: 'UPI' })
             .count();
         const COD = await Order
-            .find({paymentType: 'COD'})
+            .find({ paymentType: 'COD' })
             .count();
         const wallet = await Order
-            .find({paymentType: 'wallet'})
+            .find({ paymentType: 'wallet' })
             .count();
 
         const topSellingProducts = await Order.aggregate([
@@ -185,7 +206,7 @@ const loadDashboard = async (req, res) => {
 
         const recentSales = await Order
             .find({})
-            .sort({date: -1})
+            .sort({ date: -1 })
             .limit(10)
             .populate('userId', 'name') // populate user name
             .populate({
@@ -223,21 +244,24 @@ const loadDashboard = async (req, res) => {
         console.log(error.message);
     }
 };
-
+//admin logout
 const adminLogout = async (req, res) => {
     try {
-        req.session.admin_id = null
-        res.redirect('/admin')
+        // Clear the admin_id session variable
+        req.session.admin_id = null;
+        // Redirect to the admin login page
+        res.redirect('/admin');
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
 }
 
+// Daily sales report
 const viewDailySalesReport = async (req, res) => {
     try {
         const orders = await Order
             .find()
-            .populate({path: "product.productId", select: "productName price"});
+            .populate({ path: "product.productId", select: "productName price" });
 
         // Create a new object to store total sales for each product by day
         const salesByDayAndProduct = {};
@@ -272,7 +296,7 @@ const viewDailySalesReport = async (req, res) => {
                 });
         });
 
-        res.render("salesreport", {salesByDayAndProduct});
+        res.render("salesreport", { salesByDayAndProduct });
     } catch (error) {
         console.log(error.message);
     }

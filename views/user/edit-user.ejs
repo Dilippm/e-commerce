@@ -1,7 +1,6 @@
 <%- include('../layout/user/header.ejs')%>
     <%- include('../layout/user/navbar.ejs')%>
 
-
         <!-- Menu Toogle -->
         <div class="menu-toggle">
             <a href="#">
@@ -30,10 +29,9 @@
                 <div id="responsive-nav">
                     <!-- NAV -->
                     <ul class="main-nav nav navbar-nav">
-                        <li class="active"><a href="/">Home</a></li>
-
-
-
+                        <li class="active">
+                            <a href="/">Home</a>
+                        </li>
 
                     </ul>
                     <!-- /NAV -->
@@ -44,14 +42,7 @@
         </nav>
         <!-- /NAVIGATION -->
 
-
-
         <main id="main" class="main">
-
-
-
-
-
 
             <section>
                 <div class="container mt-4">
@@ -60,34 +51,27 @@
                             <h2 class="text-center">Edit User</h2>
                             <form action="/editedProfile/<%=use._id%>" method="post">
                                 <label for="">Your Name</label>
-                                <input type="text" name="name" class="form-control" value="<%=use.name %>" required>
+                                <input type="text" name="name" class="form-control" value="<%=use.name %>"
+                                    required="required">
 
                                 <label for="">Your email</label>
-                                <input type="email" name="email" class="form-control" value="<%=use.email %>" required>
+                                <input type="email" name="email" class="form-control" value="<%=use.email %>"
+                                    required="required">
                                 <label for="">Your mobile</label>
-                                <input type="text" name="mobile" class="form-control" value="<%=use.mobile %>" required>
-
-
-
-
-
-
+                                <input type="text" name="mobile" class="form-control" value="<%=use.mobile %>"
+                                    required="required">
 
                                 <!-- Submit Button -->
                                 <button class="btn btn-success" type="submit" style="margin-top: 30px;">Save
                                     Changes</button>
-                             
-
-
 
                             </form>
-
 
                         </div>
                     </div>
                 </div>
             </section>
-        </main><!-- End #main -->
-
+        </main>
+        <!-- End #main -->
 
         <%- include('../layout/user/footer.ejs')%>
