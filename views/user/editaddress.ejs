@@ -1,0 +1,156 @@
+
+<%- include('../layout/user/header.ejs')%>
+<%- include('../layout/user/navbar.ejs')%>
+
+
+<!-- Menu Toogle -->
+<div class="menu-toggle">
+    <a href="#">
+        <i class="fa fa-bars"></i>
+        <span>Menu</span>
+    </a>
+</div>
+<!-- /Menu Toogle -->
+</div>
+</div>
+<!-- /ACCOUNT -->
+</div>
+<!-- row -->
+</div>
+<!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+<!-- responsive-nav -->
+<div id="responsive-nav">
+<!-- NAV -->
+<ul class="main-nav nav navbar-nav">
+<li class="active"><a href="/">Home</a></li>
+
+
+
+
+</ul>
+<!-- /NAV -->
+</div>
+<!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+
+
+<main id="main" class="main">
+
+    
+   
+    <section class="vh-100 gradient-custom">
+        <div  class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="margin-top: 20px;" >Edit Address</h3>
+                  <% edit.address.forEach((element)=>{ %>  
+                  <form action="/editAddress/<%=element._id %>" method="post">
+                    <div class="row">
+                      <div class="col-md-12 mb-4">
+                        <div class="form-outline">
+                    
+                          <input type="text" name="name" value="<%=element.name %>" class="form-control form-control-lg" />
+                          <label class="form-label">Name</label>
+                        </div>
+      
+                      </div>
+                      <div class="col-md-12 mb-4">
+                        <div class="form-outline">
+                    
+                          <input type="text" name="houseName" value="<%=element.houseName %>" class="form-control form-control-lg" />
+                          <label class="form-label">House Name</label>
+                        </div>
+      
+                      </div>
+                    
+                      <div class="col-md-6 mb-4">
+      
+                        <div class="form-outline">
+                          <input type="text"  name="street" value="<%=element.street %>" class="form-control form-control-lg" />
+                          <label class="form-label">Street</label>
+                        </div>
+      
+                      </div>
+                      <div class="col-md-6 mb-4">
+      
+                        <div class="form-outline">
+                          <input type="text" value="<%=element.district %>"  name="district" class="form-control form-control-lg" />
+                          <label class="form-label">District</label>
+                        </div>
+          
+                      </div>
+                    </div>
+      
+                    <div class="row">
+                      <div class="col-md-6 mb-4 d-flex align-items-center">
+      
+                        <div class="form-outline datepicker w-100">
+                          <input type="text" value="<%=element.state %>"  name="state" class="form-control form-control-lg" id="birthdayDate" />
+                          <label  class="form-label">State</label>
+                        </div>
+      
+                      </div>
+                     
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="text" value="<%=element.country %>"   name="country" class="form-control form-control-lg" />
+                          <label class="form-label" >Country</label>
+                        </div>
+      
+                      </div>
+                    </div>
+                      
+                    
+                    <div class="row">
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="Number" value="<%=element.pincode %>"  id="emailAddress" name="pincode" class="form-control form-control-lg" />
+                          <label class="form-label">pincode</label>
+                        </div>
+      
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="Number" value="<%=element.phone %>"  name="phone" class="form-control form-control-lg" />
+                          <label class="form-label">Phone Number</label>
+                        </div>
+      
+                      </div>
+                    </div>
+      
+                 <% }) %>
+      
+                    <div class="mt-4 pt-2">
+                      <input class="btn btn-success btn-lg" type="submit" value="Submit" >
+                    </div>
+      
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+
+    </main><!-- End #main -->
+
+<%- include('../layout/user/footer.ejs')%>

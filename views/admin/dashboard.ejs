@@ -1,0 +1,403 @@
+<%- include('../layout/admin/header.ejs')%>
+    <%- include('../layout/admin/navbar.ejs')%>
+        <%- include('../layout/admin/sidebar.ejs')%>
+
+            <main id="main" class="main">
+
+                <div class="pagetitle">
+                    <h1>Dashboard</h1>
+
+                </div>
+
+                <!-- End Page Title -->
+
+                <section class="section dashboard">
+                    <div class="row">
+
+                        <!-- Left side columns -->
+                        <div class="col-lg-8">
+                            <div class="row">
+
+                                <!-- Sales Card -->
+                                <div class="col-xxl-4 col-md-6">
+                                    <div class="card info-card sales-card">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Sales
+
+                                            </h5>
+
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-cart"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                        <%= salesCount%>
+                                                    </h6>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Sales Card -->
+
+                                <!-- Revenue Card -->
+                                <div class="col-xxl-4 col-md-6">
+                                    <div class="card info-card revenue-card">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Revenue
+
+                                            </h5>
+
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-currency-rupee"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                      <%= weeklyRevenue[0]?.totalAmount || 0 %>
+                                                    </h6>
+                                                  </div>
+                                                  
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- End Revenue Card -->
+
+                                <!-- Customers Card -->
+                                <div class="col-xxl-4 col-xl-12">
+                                    <div class="card info-card customers-card">
+                                        <div class="filter">
+                                            <!-- Filter dropdown menu code here -->
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Total Customers
+                                            </h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>
+                                                        <%= totalUsers%>
+                                                    </h6>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Customers Card -->
+
+                                <!-- Reports -->
+
+                                <div class="col-12 ">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Reports</h5>
+
+                                            <h2>Daily Sales Chart</h2>
+
+                                            <!-- Line Chart -->
+                                            <div id="salesChart"></div>
+
+                                            <!-- End Line Chart -->
+                                            <!-- Status Chart -->
+                                            <h2>Status Chart</h2>
+                                            <div id="statusChart"></div>
+
+                                            <!-- Pie Chart -->
+                                            <h2>Payment Method</h2>
+                                            <div id="paymentChart"></div>
+                                            <!-- End Pie Chart -->
+
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            </div>
+                             <!-- Right side columns -->
+        <div class="col-lg-4">
+
+           <!-- Top Selling -->
+           <div class="col-12">
+            <div class="card top-selling overflow-auto">
+
+              
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">Top Selling </h5>
+
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">Preview</th> -->
+                      <th scope="col">Product</th>
+                      <!-- <th scope="col">Price</th> -->
+                      <th scope="col">Sold</th>
+                      <th scope="col">Revenue</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% topSellingProducts.forEach((product) => { %>
+                    <tr>
+                      <!-- <th scope="row"><a href="#"><img src="/productImages/<%= product.product.images[0]%>" alt=""></a></th> -->
+                      <td> <%= product.product.productName %></td>
+                      <!-- <td> ₹<%= product.product.price %></td> -->
+                      <td> <b><%= product.totalQuantityOrdered %></b> </td>
+                      <td>₹<%= product.product.price * product.totalQuantityOrdered %></td>
+                     
+                      <td></td>
+                    </tr>
+                    <% }) %>
+                   
+                  
+                  
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Top Selling -->
+          <!-- Recent Sales -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+
+             
+
+              <div class="card-body">
+                <h5 class="card-title">Recent Sales </h5>
+
+                <table class="table table-borderless datatable">
+                  <thead>
+                    <tr>
+                    
+                      <th scope="col">Customer</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% recentSales.forEach((sale) => { %>
+                    <tr>
+                     
+                      <td><%= sale.userId.name %></td>
+                      <td><% sale.product.forEach((product) => { %>
+                        <b><%= product.productId.productName %></b> x <b><%= product.quantity %></b><br>
+                      <% }) %></td>
+                      <td><b>₹</b><%= sale.total %></td>
+                      
+                    </tr>
+                    <% }) %>
+                   
+                   
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          
+
+                
+                
+
+                
+                
+
+                
+                </div><!-- End activity item-->
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Activity -->
+          </div>
+
+                        </div>
+                    </section>
+                </main>
+                <!-- End #main -->
+                <footer id="footer" class="footer">
+                  <div class="copyright">
+                    &copy; Copyright <strong><span>Electro.</span></strong>. All Rights Reserved
+                  </div>
+                  <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                   
+                  </div>
+                </footer><!-- End Footer -->
+
+                <a
+                    href="#"
+                    class="back-to-top d-flex align-items-center justify-content-center">
+                    <i class="bi bi-arrow-up-short"></i>
+                </a>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const sales = <%- JSON.stringify(sales) %>;
+                    const date = <%- JSON.stringify(date) %>;
+                
+                    document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#salesChart"), {
+                            series: [
+                                {
+                                    name: 'Sales',
+                                    data: sales
+                                }
+                            ],
+                            chart: {
+                                height: 350,
+                                type: 'area',
+                                toolbar: {
+                                    show: true
+                                }
+                            },
+                            markers: {
+                                size: 4
+                            },
+                            fill: {
+                                type: "gradient",
+                                gradient: {
+                                    shadeIntensity: 1,
+                                    opacityFrom: 0.3,
+                                    opacityTo: 0.4,
+                                    stops: [0, 90, 100]
+                                }
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            stroke: {
+                                curve: 'smooth',
+                                width: 2
+                            },
+                            xaxis: {
+                                type: 'category',
+                                categories: date
+                            },
+                            tooltip: {
+                                x: {
+                                    show: false
+                                }
+                            }
+                        }).render();
+                    });
+                </script>
+                
+                <script>
+                    const UPI = <%- JSON.stringify(UPI) %>;
+                    const COD = <%- JSON.stringify(COD) %>;
+                    const wallet = <%- JSON.stringify(wallet) %>;
+
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#paymentChart"), {
+                            // Set pie chart options
+                            series: [
+                                UPI, COD,wallet
+                            ],
+                            chart: {
+                                width: 380,
+                                type: 'pie',
+                                toolbar: {
+                        show: true,
+                      }
+                            },
+                            labels: [
+                                'UPI', 'COD','Wallet'
+                            ],
+                            responsive: [
+                                {
+                                    breakpoint: 480,
+                                    options: {
+                                        chart: {
+                                            width: 200
+                                        },
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+
+                        chart.render();
+                    });
+                </script>
+             <script>
+                const processing = <%- JSON.stringify(processing) %>;
+                const delivered = <%- JSON.stringify(delivered) %>;
+                const cancelled = <%- JSON.stringify(cancelled) %>;
+                const shipped = <%- JSON.stringify(shipped) %>;
+                const returned = <%- JSON.stringify(Returned) %>;
+              
+                const categories = ['Processing', 'Delivered', 'Cancelled', 'Shipped', 'Returned'];
+              
+                const chartData = [
+                  { name: 'Processing', data: [processing] },
+                  { name: 'Delivered', data: [delivered] },
+                  { name: 'Cancelled', data: [cancelled] },
+                  { name: 'Shipped', data: [shipped] },
+                  { name: 'Returned', data: [returned] },
+                ];
+              
+                document.addEventListener('DOMContentLoaded', () => {
+                  new ApexCharts(document.querySelector('#statusChart'), {
+                    series: chartData,
+                    chart: {
+                      height: 350,
+                      type: 'bar',
+                      toolbar: {
+                        show: true,
+                      },
+                    },
+                    dataLabels: {
+                      enabled: false,
+                    },
+                    stroke: {
+                      show: true,
+                      width: 1,
+                      colors: ['#fff'],
+                    },
+                    xaxis: {
+                      categories,
+                      labels: {
+                        formatter: (val) => Math.round(val),
+                      },
+                    },
+                    yaxis: {
+                      title: {
+                        text: '',
+                      },
+                    },
+                    forceNiceScale: true,
+                    tooltip: {
+                      y: {
+                        formatter: (val) => Math.round(val),
+                      },
+                    },
+                  }).render();
+                });
+              </script>
+              
+ 
+                <%- include('../layout/admin/footer.ejs')%>

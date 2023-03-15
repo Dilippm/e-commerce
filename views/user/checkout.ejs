@@ -1,0 +1,451 @@
+<%- include('../layout/user/header.ejs')%>
+    <%- include('../layout/user/navbar.ejs')%>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.6.3.js"
+            integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+            crossorigin="anonymous"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+        <!-- Menu Toogle -->
+        <div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
+        </div>
+        <!-- /Menu Toogle -->
+    </div>
+</div>
+<!-- /ACCOUNT -->
+</div>
+<!-- row -->
+</div>
+<!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+<!-- responsive-nav -->
+<div id="responsive-nav">
+<!-- NAV -->
+<ul class="main-nav nav navbar-nav">
+<li class="active">
+    <a href="/">Home</a>
+</li>
+
+</ul>
+<!-- /NAV -->
+</div>
+<!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- SECTION -->
+<div class="section">
+<form action="" method="post" id="checkout-form">
+<!-- container -->
+<div class="container">
+
+<!-- row -->
+<% if(typeof userdetails!=='undefined'){ %>
+<% if(typeof datas!=='undefined'){ %>
+    <div class="row">
+
+        <div class="col-md-7">
+            <!-- Billing Details -->
+            <div class="billing-details">
+                <div class="section-title">
+                    <h3 class="title">Shipping address</h3>
+                </div>
+
+                <% if(addressDetails.length > 0) { %>
+                    <h4 style="margin-bottom: 20px;">Select shipping address:</h4>
+                    <% for(var i=0; i<addressDetails.length; i++) { %>
+                        <div class="form-check" style="padding: 20px;">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="address"
+                                id="shipping-address<%=i%>"
+                                value="<%=addressDetails[i]._id%>"
+                                onchange="updateDeliveryAddress('<%=addressDetails[i].name %>,<%= addressDetails[i].houseName %>, <%= addressDetails[i].street %>, <%= addressDetails[i].district %>, <%= addressDetails[i].country %> - <%= addressDetails[i].pincode %>')">
+                            <label class="form-check-label" for="shipping-address<%=i%>">
+                                <%=addressDetails[i].name%>,<%=addressDetails[i].houseName%>,
+                                <%=addressDetails[i].street%>,
+                                <%=addressDetails[i].district%>,
+                                <%=addressDetails[i].country%>
+                                -
+                                <%=addressDetails[i].pincode%>
+                            </label>
+                        </div>
+                    <% } %>
+                <% } %>
+                <div class="form-group">
+                    <input
+                        class="input"
+                        type="text"
+                        name="delivery-address"
+                        id="delivery-address"
+                        placeholder="Delivery address"
+                        hidden="hidden">
+                </div>
+                <button style="margin-top: 20px;">
+                    <a href="/addAddress">Add address</a>
+                </button>
+            </div>
+            <!-- /Billing Details -->
+        </div>
+
+        <!-- Order Details -->
+        <div class="col-md-5 order-details">
+            <div class="section-title text-center">
+                <h3 class="title">Your Order</h3>
+            </div>
+            <div class="order-summary">
+                <div class="order-col">
+                    <div>
+                        <strong>PRODUCT</strong>
+                    </div>
+                    <div>
+                        <strong>TOTAL</strong>
+                    </div>
+                </div>
+                <% for (let key of cartProducts) { %>
+                    <input type="hidden" name="proId" value="<%= key.product._id %>">
+                    <div class="order-products">
+                        <div class="order-col">
+                            <div><%= key.product.productName %></div>
+                            <div style="padding-left: 300px;">₹.<%=key.productTotalPrice %></div>
+
+                            <input type="hidden" name="proQ" value="  <%=key.quantity %>">
+                            <input type="hidden" name="qntyPrice" value="<%=key.productTotalPrice %>">
+                            <input type="hidden" name="code" id="copcode" value="">
+                        </div>
+
+                    </div>
+                <% } %>
+                <div class="row justify-content-between">
+                    <div class="col-4">
+                        <p class="mb-1">
+                            <b>Subtotal</b>
+                        </p>
+                    </div>
+                    <div class="flex-sm-col col-auto">
+                        <p class="mb-1">
+                            <b>
+                                <%= datas.totalPrice %>
+                                <input type="hidden" name="total" value="<%= datas.totalPrice %>">
+                            </b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <p class="mb-1">
+                            <b>Discount</b>
+                        </p>
+                    </div>
+                    <div class="flex-sm-col col-auto">
+                        <p id="discount" class="mb-1">
+                            <b>0</b>
+                        </p>
+                    </div>
+                    <input id="discount1" name="discount1" type="hidden" value="">
+                </div>
+                <div class="order-col">
+                    <div>Shiping</div>
+                    <div>
+                        <strong>FREE</strong>
+                    </div>
+                </div>
+                <div class="order-col">
+                    <div>
+                        <strong>TOTAL</strong>
+                    </div>
+                    <div>
+                        <strong id="total" class="order-total">₹.
+                            <%= datas.totalPrice %></strong>
+                    </div>
+
+                    <input type="hidden" id="total1" name="total1" value="<%=datas.totalPrice %>">
+
+                </div>
+                <div class="order-col">
+                    <form id="formCoupon">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="NAME" class="small text-muted mb-1">Coupon Code</label>
+                                <input
+                                    type="text"
+                                    form="formCoupon"
+                                    class="form-control form-control-sm"
+                                    name="code"
+                                    id="NAMEcode"
+                                    aria-describedby="helpId">
+
+                            </div>
+                            <button
+                                class="btn btn-warning"
+                                style=" color: black; border-radius: 5px;"
+                                onclick="applyCoupon('<%= datas.totalPrice %>', $('#NAMEcode').val())"
+                                form="formCoupon">
+                                <b>Redeem Now</b>
+                            </button>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group"></div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div></div>
+            <div>
+                <label for="NAME" class="small text-muted mb-1">Payment Method</label><br><br>
+
+                <div class="form-group">
+                    <input type="radio" name="test" value="COD">
+                    Cash on delivery<br><br>
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="test" value="UPI">UPI<br><br>
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="test" value="wallet">
+                    Use Wallet
+                    <br><br>
+                </div>
+
+            </div>
+
+            <div class="row mb-md-5">
+                <div class="col">
+                    <button type="submit" name="" id="" class="btn btn-danger  btn-lg btn-block ">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Order Details -->
+</div>
+<%} %>
+<%} %>
+<!-- /row -->
+</form>
+</div>
+
+<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- FOOTER -->
+<footer id="footer">
+    <!-- top footer -->
+    <div class="section">
+      <!-- container -->
+      <div class="container-fluid" style="margin: 0;">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-3 col-xs-6">
+            <div class="footer">
+              <h3 class="footer-title">About Us</h3>
+              <p>We sell the best!!!</p>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fa fa-map-marker"></i>Kakkanchery, Malappuram</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>9990009900</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i>electro@gmail.com</a></li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="col-md-3 col-xs-6">
+            <div class="footer">
+              <h3 class="footer-title">Categories</h3>
+              <ul class="footer-links">
+              
+                <li><a href="/products">Laptops</a></li>
+                <li><a href="/products">Smartphones</a></li>
+            
+              </ul>
+            </div>
+          </div>
+  
+          <div class="clearfix visible-xs"></div>
+  
+          <div class="col-md-3 col-xs-6">
+            <div class="footer">
+              <h3 class="footer-title">Information</h3>
+              <ul class="footer-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="/orderlist">Orders and Returns</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="col-md-3 col-xs-6">
+            <div class="footer">
+              <h3 class="footer-title">Service</h3>
+              <ul class="footer-links">
+                <li><a href="/profile">My Account</a></li>
+                <li><a href="/cart">View Cart</a></li>
+                <li><a href="/wishlist">Wishlist</a></li>
+                <li><a href="/orderlist">Track My Order</a></li>
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /top footer -->
+  
+  
+  </footer>
+  <!-- /FOOTER -->
+
+<script>
+function updateDeliveryAddress(address) {
+document
+.getElementById('delivery-address')
+.value = address;
+}
+
+function applyCoupon(total, code) {
+
+$.ajax({
+
+url: '/applyCoupon',
+data: {
+total: total,
+code: code
+},
+method: "post",
+success: (response) => {
+if (response.datefailed) {
+//console.log("failed to match");
+Swal.fire({icon: 'error', title: 'Oops...', text: 'Coupon Expired.'})
+} else if (response.amountnokay) {
+//console.log("pattilla");
+Swal.fire(
+    {icon: 'error', title: 'Oops...', text: 'To access this coupen buy something more.'}
+)
+} else if (response.amountokay) {
+//console.log("vangaam") console.log("ooookayyy");
+
+$('#code').html(response.code)
+$('#discount').html(response.discountValue)
+$('#discount1').html(response.discountValue)
+$('#total').html(response.value)
+$('#total1').attr({value: response.value})
+$('#copcode').attr({value: response.code})
+
+Swal.fire('Good job!', 'Coupen granted!', 'success')
+// console.log("ttttt" + response.value); console.log("dissss" +
+// response.discountValue);
+
+} else if (response.used) {
+Swal.fire({icon: 'error', title: 'Oops...', text: 'Already Used.'})
+} else if (response.invalid) {
+Swal.fire({icon: 'error', title: 'Oops...', text: 'Invalid Coupon.'})
+}
+
+}
+})
+}
+
+$("#checkout-form").submit((e) => {
+e.preventDefault();
+var formData = $("#checkout-form").serialize();
+$.ajax({
+url: '/checkout', // replace with the URL of your server-side script
+type: 'POST', // use POST method
+data: formData,
+success: (response) => {
+// handle the response from the server
+//console.log("yes")
+//console.log(response);
+if (response.status) {
+location.href = '/success'
+} else if (response.radio) {
+Swal.fire({icon: 'error', title: 'Oops...', text: 'Select Payment Method.'})
+} else if (response.insufficiant) {
+Swal.fire(
+    {icon: 'error', title: 'Oops...', text: 'Insufficiant Wallet Amount.'}
+)
+} else if (response.address) {
+Swal.fire({icon: 'error', title: 'Oops...', text: 'Select Delivery Address'})
+
+} else if (response.viewRazorpay) {
+razorpayPayment(response.order)
+}
+}
+});
+});
+function razorpayPayment(order) {
+var options = {
+"key": "rzp_test_ObYUW6m2fN5vlq", // Enter the Key ID generated from the Dashboard
+"amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+"currency": "INR",
+"name": "Electro", //your business name
+"description": "Test Transaction",
+"image": "https://example.com/your_logo",
+"order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+"handler": function (response) {
+// alert(response.razorpay_payment_id); alert(response.razorpay_order_id);
+// alert(response.razorpay_signature)
+
+verifyPayment(response, order)
+},
+"prefill": {
+"name": "Dilip P M", //your customer's name
+"email": "dilippm92@gmail.com",
+"contact": "9000090000"
+},
+"notes": {
+"address": "Razorpay Corporate Office"
+},
+"theme": {
+"color": "#3399cc"
+}
+};
+var rzp1 = new Razorpay(options);
+rzp1.open();
+
+}
+
+function verifyPayment(payment, order) {
+$.ajax({
+url: '/verify-payment',
+data: {
+payment,
+order
+},
+method: "post",
+success: (response) => {
+// handle the response from the server
+console.log("yes")
+console.log(response);
+if (response.status) {
+location.href = '/success'
+}
+}
+})
+
+}
+</script>
+<%- include('../layout/user/footer.ejs')%>

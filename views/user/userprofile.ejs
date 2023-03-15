@@ -1,0 +1,148 @@
+<%- include('../layout/user/header.ejs')%>
+<%- include('../layout/user/navbar.ejs')%>
+
+
+<!-- Menu Toogle -->
+<div class="menu-toggle">
+    <a href="#">
+        <i class="fa fa-bars"></i>
+        <span>Menu</span>
+    </a>
+</div>
+<!-- /Menu Toogle -->
+</div>
+</div>
+<!-- /ACCOUNT -->
+</div>
+<!-- row -->
+</div>
+<!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+<!-- responsive-nav -->
+<div id="responsive-nav">
+<!-- NAV -->
+<ul class="main-nav nav navbar-nav">
+<li class="active"><a href="/">Home</a></li>
+
+
+
+
+</ul>
+<!-- /NAV -->
+</div>
+<!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+
+
+<main id="main" class="main">
+
+  
+
+
+  
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+           
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <% if(typeof userdetails!=='undefined'){ %>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px; margin-bottom: 10px;">
+                
+              <h5 class="my-3"><%= userdetails.name%> </h5>
+              
+              <div class="d-flex justify-content-center mb-2">
+                       </div>
+            </div>
+          </div>
+          
+        </div>
+       
+       
+       
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= userdetails.name %></p>
+                </div>
+              </div>
+              <hr>
+              
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= userdetails.email %></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= userdetails.mobile %></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Wallet Balance:</p>
+                </div>
+                <div class="col-sm-9">
+                  <% if (userdetails.wallet) { %>
+                    <p class="text-muted mb-0">₹<%= userdetails.wallet %></p>
+                  <% } else { %>
+                    <p class="text-muted mb-0">₹0</p>
+                  <% } %>
+                </div>
+              </div>
+              
+              <hr>
+             
+              <hr>
+             
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary ms-1"><a href="/address" style="color: white;">Address</a></button>
+          <button type="button" class="btn btn-warning ms-1"><a href="/edit-user">Edit Profile</a></button>
+          <button type="button" class="btn btn-danger ms-1"><a href="/orderlist" style="color: white;">View Orders</a></button>
+          </div>
+        </div>
+        <%} %>
+      </div>
+    </div>
+
+    
+  </section>
+    </main><!-- End #main -->
+
+<%- include('../layout/user/footer.ejs')%>

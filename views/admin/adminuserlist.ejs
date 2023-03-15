@@ -1,0 +1,68 @@
+<%- include('../layout/admin/header.ejs')%>
+
+<%- include('../layout/admin/navbar.ejs')%>
+<%- include('../layout/admin/sidebar.ejs')%>
+
+
+<div class="container">
+  <div class="pagetitle" style="margin-top: 100px;">
+    <h1>Users</h1>
+    
+  </div>
+ 
+
+
+  <table class="table" id="usertable">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Status</th>
+        
+       
+        
+       
+      </tr>
+    </thead>
+  
+   <tbody>
+  <% userData.forEach((user, index) => {%>
+    <tr>
+      <td scope="row"> <%=index+1%></td>
+      <td><%=user.name%></td>
+      <td><%=user.email%></td>
+      <td><%=user.mobile%></td>
+      
+      <td>
+        <% if(user.status==true){ %>
+          <button type="button" class="btn btn-success">
+            <a href="/admin/user/unblockuser/<%= user._id %>" style="color: white; text-decoration: none;">Unblock</a>
+          </button>
+        <%} else{%>
+          <button type="button" class="btn btn-danger">
+            <a href="/admin/user/blockuser/<%= user._id %>" style="color: white; text-decoration: none;">Block</a>
+          </button>
+        <%}%>
+      </td>
+    </tr>
+  <% })%>
+</tbody>
+
+      
+  
+  
+          
+
+          <script>
+            $(document).ready( function () {
+            $('#usertable').DataTable();
+        });
+        </script>
+
+</div>
+    
+     
+
+<%- include('../layout/admin/footer.ejs')%>

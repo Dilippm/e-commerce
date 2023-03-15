@@ -1,0 +1,122 @@
+<%- include('../layout/admin/header.ejs')%>
+<%- include('../layout/admin/navbar.ejs')%>
+<%- include('../layout/admin/sidebar.ejs')%>
+
+
+<div class="container">
+    <div class="pagetitle" style="margin-top: 100px;">
+      <h1><b>Orders</b> </h1>
+      
+    </div>
+  
+  
+  
+    <table class="table" id="ordertable">
+      <thead>
+        <tr>
+          <th>No.</th>
+         
+          <th>Product Name</th>
+         
+      
+          
+          <th>Payment</th>
+          <th>Price</th>
+          <th>Date</th>
+
+          <th>status</th>
+        
+          <th>Details</th>
+          
+         
+        </tr>
+      </thead>
+    
+      <tbody>
+        <% if(orderDetail.length > 0){ %>
+          <% for(let i=0; i<orderDetail.length; i++){ %>
+            <tr>
+              <td> <%= i+1 %></td>
+             
+              <td> 
+                <% order[i].product.forEach((element)=>{ %>
+               
+                  <%= element.productId.productName %> (x <%= element.quantity %>)<br>
+                  <% console.log(element.productId.productName); %>
+                <% })%>
+              </td>
+           
+          
+              <td><%= order[i].paymentType %></td>
+              <td><%= order[i].total %></td>
+              <td><%= new Date(order[i].date).toLocaleDateString() %></td>
+
+              <td>
+                <% if (orderDetail[i].status === "Cancelled" || orderDetail[i].status === "unpaid" || orderDetail[i].status === "Return Pending" || orderDetail[i].status === "Delivered") { %>
+                    <%= orderDetail[i].status %>
+                <% } else { %>
+                    <form action="/admin/order/change-order-status" method="post">
+                        <input type="hidden" name="orderId" value="<%= orderDetail[i].orderId %>">
+                        <select name="status" onchange="this.form.submit()" <% if (orderDetail[i].status === "Cancelled" || orderDetail[i].status === "Return Pending" || orderDetail[i].status === "Delivered") { %>disabled<% } %>>
+                            <% if (orderDetail[i].status === "Delivered") { %>
+                                <option value="Delivered" selected>Delivered</option>
+                            <% } else if (orderDetail[i].status === "Shipped") { %>
+                                <option value="Shipped" selected>Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            <% } else if (orderDetail[i].status === "Processing") { %>
+                                <option value="Processing" selected>Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            <% } else { %>
+                                <option value="Pending" selected>Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            <% } %>
+                        </select>
+                    </form>
+                <% } %>
+            </td>
+       
+            
+              
+              <td> <a href="/admin/order/detail/<%= orderDetail[i].id %>">
+            <i class="fas fa-eye" style="padding-right: 10px; color: black " ></i>
+          </a></td>
+              
+
+            </tr>
+          <% } %>
+        <% } %>
+      </tbody>
+      
+      
+    
+    
+      </table>
+           
+  
+  </div>
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Electro.</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+     
+    </div>
+  </footer><!-- End Footer -->
+  <script>
+
+    $(document).ready(function () {
+      $('#ordertable').DataTable();
+    });
+  </script>
+    
+
+
+<%- include('../layout/admin/footer.ejs')%>
+

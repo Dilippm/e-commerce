@@ -1,0 +1,108 @@
+<%- include('../layout/admin/header.ejs')%>
+    <%- include('../layout/admin/navbar.ejs')%>
+        <%- include('../layout/admin/sidebar.ejs')%>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous"></script>
+<div class="container">
+    <div class="pagetitle" style="margin-top: 100px;">
+      <h1><b>Products</b> </h1>
+      
+    </div>
+    <div>
+        <a class="waves-effect waves-dark p-4" href="/admin/addCoupons" aria-expanded="false"><i
+            class="fa fa-gift"></i><span class="hide-menu" style="color: black;">Add Coupon</span></a>
+     
+      <br>
+      <br>
+    </div>
+  
+  
+    <table class="table" id="categorytable">
+      <thead>
+        <tr>
+            <th>No.</th>
+            <th>Coupon Code</th>      
+                               
+            <th>ExpireDate</th>
+            <th>MaxDiscount</th>
+            <th>MinPurchaceAmount</th>
+            <th>percentageOff</th>
+            <th>Action</th>
+          <th>Edit</th>
+          </tr>
+      </thead>
+    
+      <tbody>
+                    
+        <% coupons.forEach((element,index)=>{%>
+
+     
+       <tr>
+         <td><%=index+1 %></td>
+         <td> <%=element.code %></td>
+    
+         <td>  <%=element.expirationDate.toLocaleDateString() %>
+          
+          </td>
+         <td> <%=element.maxDiscount %></td>
+         <td> <%=element.MinPurchaceAmount %></td>
+         <td> <%=element.percentageOff %></td>
+         <td><button style="background-color: rgb(205, 34, 34);color: rgb(255, 253, 253); border-radius:5px;" onclick="deleteCoupon('<%=element._id %>')">Delete</button>
+
+         <td> <a style="height: 30px;" class="btn btn-primary" href="EditCoupon/<%=element._id %>">Edit </a></td>
+         
+        
+
+             
+       </tr>
+       <%})%>
+    
+     </tbody>
+        
+    
+    
+            
+  
+            <script>
+              $(document).ready( function () {
+              $('#categorytable').DataTable();
+          });
+          </script>
+  
+  </div>
+  <script>
+    function deleteCoupon(deleteId) {
+      console.log("deleeeeeete"+deleteId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You wan't to delete!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'yes, delete!'
+        }).then((result) => {
+               if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/admin/deleteCoupon/' + deleteId,
+                                method: 'get',
+                                success: (response) => {
+                                    Swal.fire({
+                                        title: 'deleted!',
+                                        text: 'Your deleted',
+                                        icon: 'success',
+                                        showConfirmButton: false
+                                    })
+                                    setTimeout(() => {
+                                        location.reload()
+                                    }, 1000);
+                                }
+                            })
+                        }
+        })
+    }
+  </script>
+
+        <%- include('../layout/admin/footer.ejs')%>

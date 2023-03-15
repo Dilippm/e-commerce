@@ -1,0 +1,118 @@
+<%- include('../layout/admin/header.ejs')%>
+  <%- include('../layout/admin/navbar.ejs')%>
+    <%- include('../layout/admin/sidebar.ejs')%>
+
+      <div class="container">
+        <div class="pagetitle" style="margin-top: 100px;">
+          <h1>
+            <b>Banners</b>
+          </h1>
+
+        </div>
+
+        <div class="page-wrapper">
+
+          <div class="container-fluid">
+
+            <form>
+              <a class="waves-effect waves-dark p-4" href="/admin/addAdds" aria-expanded="false">
+                <i class="fa fa-edit"></i>
+                <span class="hide-menu">Add Banner</span></a>
+
+            </form>
+
+            <div class="row">
+              <!-- column -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="table-responsive">
+                      <table class="table" id="categorytable">
+                        <thead>
+                          <tr>
+                            <th>No.</th>
+                            <th>name</th>
+                            <th>image</th>
+
+                            <th>Action</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% add.forEach((element,index)=> { %>
+                            <tr>
+                              <td>
+                                <%=index+1 %>
+                              </td>
+                              <td>
+                                <%= element.name%>
+                              </td>
+                              <td><img style="width:60px" src="/productImages/<%=element.image[0] %>" alt=""></td>
+
+                              <td>
+                                <a class="waves-effect waves-dark" href="/admin/editAdd/<%= element._id %>"
+                                  aria-expanded="false">
+                                  <i class="fa fa-edit" style="color: rgb(0, 102, 255); font-size:26px;"></i>
+                                  <span class="hide-menu"></span></a>
+
+                                <a style="color: white; text-decoration: none;"
+                                  href="/admin/ads/deleteadd/<%=element.id%>" onclick="return confirmDelete(event);">
+                                  <i class="fas fa-trash" style="padding-right: 10px; color: red; "></i>
+                                </a>
+                              </td>
+
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <script>
+          $(document).ready(function () {
+            $('#categorytable').DataTable();
+          });
+
+          function confirmDelete() {
+            if (confirm("Are you sure you want to delete this banner?")) {
+              // Check if there are any products associated with the category
+              const categoryId = event
+                .target
+                .closest("a")
+                .href
+                .split("/")
+                .pop();
+              return fetch(`/api/ads/deleteadd/${categoryId}`)
+                .then((res) => {
+                  if (!res.ok) {
+                    throw new Error(res.error);
+                  }
+                  return res.json();
+                })
+                .then((data) => {
+                  if (data.length > 0) {
+                    //alert("Cannot delete category. There are products associated with it.");
+                    return false; // Prevent the default action of the delete button
+                  } else {
+                    return true; // Allow the default action of the delete button
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+
+                  return false; // Prevent the default action of the delete button
+                });
+            } else {
+              return false; // Prevent the default action of the delete button
+            }
+          }
+        </script>
+
+        <%- include('../layout/admin/footer.ejs')%>

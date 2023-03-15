@@ -1,0 +1,97 @@
+<%- include('../layout/admin/header.ejs')%>
+
+<%- include('../layout/admin/navbar.ejs')%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<div class="container">
+  <div class="pagetitle" style="margin-top: 100px;">
+    <h1>Sales Report</h1>
+    
+    <button class="btn btn-primary" onclick="window.print()" >Print Report </button>
+     <a href="/admin/dashboard"><i class="fa-sharp fa-solid fa-house" style="padding-left: 20px;"></i></a>
+  
+  </div>
+  <div id="date-filter">
+    <label for="start-date">Start Date:</label>
+    <input type="date" id="start-date">
+    <label for="end-date">End Date:</label>
+    <input type="date" id="end-date">
+    <button class="btn btn-dark" id="filter-button">Filter</button>
+  </div>
+  
+  <table class="table" id="usertable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Product Name</th>
+        <th>Quantity Sold</th>
+        <th>Total Amount</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <% let prevDayTotalSales = 0 %>
+      <% Object.entries(salesByDayAndProduct).forEach(([day, products], index) => { %>
+        <% let dayTotalSales = 0 %>
+        <% Object.entries(products).forEach(([productName, { quantitySold, totalSales }]) => { %>
+          <% dayTotalSales += totalSales %>
+          <tr>
+            <td><%= day %></td>
+            <td><%= productName %></td>
+            <td><%= quantitySold %></td>
+            <td> ₹<%= totalSales %></td>
+          </tr>
+        <% }) %>
+        <% prevDayTotalSales = dayTotalSales %>
+      <% }) %>
+     
+    </tbody>
+  </table>
+</div>
+<script>
+ $(document).ready(function() {
+  $('#usertable').DataTable();
+
+  $('#filter-button').on('click', function() {
+    // Reset the filter
+    $('#table-body tr').show();
+    $('#no-data-row').remove();
+
+    const startDate = moment($('#start-date').val(), 'YYYY-MM-DD');
+    const endDate = moment($('#end-date').val(), 'YYYY-MM-DD');
+
+    $('#table-body tr').each(function(index, tr) {
+      const date = moment($(tr).find('td:first-child').text(), 'YYYY-MM-DD');
+      if (date.isValid() && date.isBetween(startDate, endDate, null, '[]')) {
+        $(tr).show();
+      } else {
+        $(tr).hide();
+      }
+    });
+
+    if ($('#table-body tr:visible').length == 0) {
+      $('#usertable').append('<tr id="no-data-row"><td colspan="4" class="text-center">No data available.</td></tr>');
+    }
+  });
+});
+
+
+  $(document).ready(function() {
+    $('#usertable').DataTable();
+
+    $('#filter-button').on('click', function() {
+      calculateSummary();
+    });
+  });
+</script>
+
+
+
+
+
+<%- include('../layout/admin/footer.ejs')%>

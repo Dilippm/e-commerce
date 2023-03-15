@@ -1,0 +1,261 @@
+<%- include('../layout/user/header.ejs')%>
+<%- include('../layout/user/navbar.ejs')%>
+    
+
+
+
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+  <!-- responsive-nav -->
+  <div id="responsive-nav">
+    <!-- NAV -->
+    <ul class="main-nav nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+      
+    </ul>
+    <!-- /NAV -->
+  </div>
+  <!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[0]%>" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[1]%>" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[2]%>" alt="">
+							</div>
+
+							
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[0]%>"alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[1]%>" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/productImages/<%=productdetails.images[2]%>" alt="">
+							</div>
+
+							
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name"><%=productdetails.productName%></h2>
+							<div>
+								<div class="product-rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+								</div>
+							
+							</div>
+							<div>
+								<h3 class="product-price">₹ <%=productdetails.price%> <del class="product-old-price">₹ <%= (productdetails.price * 1.05).toFixed(2) %></del> </h3>
+								<span class="product-available">
+									<% if (productdetails.quantity > 0) { %>
+									  In Stock
+									<% } else { %>
+									  Out of Stock
+									<% } %>
+								  </span>
+								  
+							</div>
+							
+
+							
+							<div class="product-btns" style="margin-bottom: 10px;">
+								<button class="add-to-wishlist btn btn-warning"
+																onclick="addtoWishlist('<%= productdetails._id %>')">
+																<i class="fa fa-heart-o"></i>
+																<span class="tooltipp" style="color: black;">Add to Wishlist</span>
+															</button>
+								
+							</div>
+						</div>
+						<div class="add-to-cart" onclick="addToCart('<%= productdetails._id %>')">
+							<button class="add-to-cart-btn btn btn-danger">
+								<i class="fa fa-shopping-cart"></i>
+							
+								
+						   Add to cart </button>
+						   
+						</div>
+
+							<ul class="product-links">
+								<li>Category:</li>
+								<li><a href="#"><%=productdetails.category.category%></a></li>
+							
+							</ul>
+
+						
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+							
+								
+							</ul>
+							<!-- /product tab nav -->
+
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<p><%=productdetails.description%></p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab1  -->
+
+								
+
+							
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+		
+
+		
+
+	
+		<script>
+			function addtoWishlist(proId) {
+				console.log(proId);
+				$.ajax({
+					url: '/addWishlist/' + proId, // replace with the URL of your server-side script
+					type: 'get', // use POST method
+		
+					success: (response) => {
+						console.log(response);
+						if (response.done) {
+							Swal.fire({
+								position: 'top-end',
+								icon: 'success',
+								title: 'Added to Whishlist',
+								showConfirmButton: false,
+								timer: 3000
+							})
+						} else if (response.exist) {
+							Swal.fire({
+								position: 'top-end',
+		
+								title: 'Already in Wishlist',
+								showConfirmButton: false,
+								timer: 3000
+							})
+						} else {
+							location.href = '/login'
+						}
+		
+					}
+				})
+			}
+		
+			function addToCart(proId) {
+				console.log(proId);
+				$.ajax({
+					url: '/add-to-cart/' + proId, // replace with the URL of your server-side script
+					type: 'get', // use POST method
+		
+					success: (response) => {
+						console.log(response);
+						if (response.done) {
+							Swal.fire({
+								position: 'top-end',
+								icon: 'success',
+								title: 'Added to Cart',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						} else if (response.exist) {
+							Swal.fire({
+								position: 'top-end',
+		
+								title: 'Already in Cart',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						} else {
+							location.href = '/login'
+						}
+		
+					}
+				})
+			}
+		
+		</script>
+
+
+        <%- include('../layout/user/footer.ejs')%>

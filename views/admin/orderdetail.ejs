@@ -1,0 +1,118 @@
+<%- include('../layout/admin/header.ejs')%>
+
+    <%- include('../layout/admin/navbar.ejs')%>
+        <%- include('../layout/admin/sidebar.ejs')%>
+
+
+            <main id="main" class="main">
+                <div class="pagetitle">
+                    <h1> <b>Order Details</b> </h1>
+
+                </div>
+
+
+
+
+                <!-- SECTION -->
+                <div class="section">
+                    <!-- container -->
+                    <div class="container">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- Product main img -->
+                            <div class="col-md-5 col-md-push-2">
+                                <div id="product-main-img">
+                                    <h4><b>Images</b></h4>
+                                    <div>
+                                        <% for(let i=0; i<orderdetails.product.length; i++){ %>
+                                            <div class="product-preview" style="padding-bottom: 20px;">
+                                                <img src="/productImages/<%=orderdetails.product[i].productId.images[i]%>"
+                                                    width="150px" height="150px" alt="">
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product details -->
+                            <div class="col-md-5">
+                                <div class="product-details">
+                                    <h4 class="product-name"><b style="color: blue;">Order Id:</b> </h4>
+                                      <p style="font-size: larger;"> <b><%= orderdetails.orderId%></b></p> 
+                                   
+                                   
+                                      <h4 class="product-price"><b style="color: blue;">Product Name:</b></h4>
+                                    <% for(let i=0; i<orderdetails.product.length; i++){ %>
+                                       
+                                            <p style="font-size: larger;"> <b><%=i+1 %>. <%=  orderdetails.product[i].productId.productName %></b>  </p>
+                                          
+                                        
+                                        <% } %>
+
+                                    <div>
+                                        <h4 class="product-price"><b style="color: blue;">Total Price:</b> </h4>
+                                        <p style="font-size: larger;"> <b>₹ <%= orderdetails.total %></b> </p> 
+                                       
+                                        <h4 class="product-price"><b style="color: blue;">Quantity:</b></h4>
+                                        <% for(let i=0; i<orderdetails.product.length; i++){ %>
+                                            
+                                                <p style="font-size: larger;"> <b><%=i+1 %>. <%= orderdetails.product[i].quantity %></b>  </p>
+                                              
+                                            
+                                            <% } %>
+                                    </div>
+
+                                    <h4 class="product-price"><b style="color: blue;">User Name:</b></h4>
+                                        <p style="font-size: larger;"> <b ><%= orderdetails.userId.name %></b>  </p>
+                                       
+                                    
+
+                                    <% if(orderdetails.deliveryAddress.length> 0) { %>
+                                        <h4 class="product-price"><b style="color: blue;">Delivery Address:</b></h4>
+                                        <% for(let i=0; i<orderdetails.deliveryAddress.length; i++){ %>
+                                            <p class="product-price" style="margin-bottom: 5px;font-size: larger; "><i
+                                                    class="fas fa-map-marker-alt"></i>
+                                               <b>
+                                                <%= orderdetails.deliveryAddress[i].name %>,
+                                                <%= orderdetails.deliveryAddress[i].houseName %>, <%=
+                                                        orderdetails.deliveryAddress[i].street %>, <%=
+                                                            orderdetails.deliveryAddress[i].district %>, <%=
+                                                                orderdetails.deliveryAddress[i].country %> - <%=
+                                                                    orderdetails.deliveryAddress[i].pincode %>
+
+                                               </b> 
+                                            </p>
+                                            <% } %>
+                                                <% } %>
+
+                                                   
+                                                     
+                                                    <h4 class="product-price"><b style="color: blue;">Track Order:</b></h4>
+                                                    <p style="font-size: larger;"> <b style="color: rgb(165, 42, 149);">Pending:<%= orderdetails.date %></b></p>
+                                                    <% for (let i = 0; i < orderdetails.orderStatus.length; i++) { %>
+                                                        <% if (orderdetails.orderStatus[i].status === 'Cancelled') { %>
+                                                            <p style="font-size: larger;"><b style="color:red;"><%= orderdetails.orderStatus[i].status %>: <%= orderdetails.orderStatus[i].date %></b></p>
+                                                          <% } else { %>
+                                                            <p style="font-size: larger;"><b style="color:black;"><%= orderdetails.orderStatus[i].status %>: <%= orderdetails.orderStatus[i].date %></b></p>
+                                                          <% } %>
+                                                          
+                                                      <% } %>
+                                                      
+                                                    
+                                </div>
+                            </div>
+                            <!-- /Product details -->
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /container -->
+                </div>
+                <!-- /SECTION -->
+
+
+
+
+            </main>
+
+
+            <%- include('../layout/admin/footer.ejs')%>

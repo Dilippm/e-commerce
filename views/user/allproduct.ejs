@@ -1,0 +1,359 @@
+<%- include('../layout/user/header.ejs')%>
+    <%- include('../layout/user/navbar.ejs')%>
+
+        <!-- Menu Toogle -->
+        <div class="menu-toggle">
+            <a href="#">
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+            </a>
+        </div>
+        <!-- /Menu Toogle -->
+    </div>
+</div>
+<!-- /ACCOUNT -->
+</div>
+<!-- row -->
+</div>
+<!-- container -->
+</div>
+<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+<!-- container -->
+<div class="container">
+<!-- responsive-nav -->
+<div id="responsive-nav">
+<!-- NAV -->
+<ul class="main-nav nav navbar-nav">
+<li class="active">
+    <a href="/">Home</a>
+</li>
+<li class="active">
+    <a href="/products">All Products</a>
+</li>
+
+</ul>
+<!-- /NAV -->
+</div>
+<!-- /responsive-nav -->
+</div>
+<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- /SECTION -->
+<!-- SECTION -->
+
+<!-- SECTION -->
+<div class="section">
+<!-- container -->
+<div class="container">
+<!-- row -->
+<div class="row">
+<!-- ASIDE -->
+<div id="aside" class="col-md-3">
+
+<div class="aside">
+    <h3 class="aside-title">Top selling</h3>
+    <% topSellingProducts.forEach((product) => { %>
+        <div class="product-widget">
+            <div class="product-img">
+                <img src="/productImages/<%= product.product.images[0] %> " alt="">
+            </div>
+            <div class="product-body">
+
+                <h3 class="product-name">
+                    <a href="/productview/<%= product.product._id %>"><%= product.product.productName %></a>
+                </h3>
+                <h4 class="product-price">₹<%= product.product.price %>
+                </h4>
+            </div>
+        </div>
+        <% }) %>
+
+        </div>
+        <!-- /aside Widget -->
+    </div>
+    <!-- /ASIDE -->
+
+    <!-- STORE -->
+    <div id="store" class="col-md-9">
+        <!-- store top filter -->
+        <div class="store-filter clearfix">
+            <div class="store-sort">
+                <form id="sort-form" method="get" action="/sort-products-by-category">
+                    <label>
+                        <b>Sort By Category:</b>
+                        <select name="category" class="input-select">
+                            <option value="all">All Products</option>
+                            <% const category = Array.from(new Set(data.map(item => item.category))); %>
+                                <% category.forEach(category => { %>
+                                    <option value="<%- category.id %>">
+                                        <b>
+                                            <%- category.category %>
+                                            </b>
+                                        </option>
+                                        <% }) %>
+
+                                        </select>
+                                    </label>
+                                    <button class="btn btn-primary" type="submit">
+                                        <b>Sort</b>
+                                    </button>
+
+                                </form>
+                            </div>
+
+                            <!-- <ul class="store-grid"> <li class="active"> <i class="fa fa-th"></i> </li>
+                            <li> <a href="#"> <i class="fa fa-th-list"></i> </a> </li> </ul> -->
+                        </div>
+                        <!-- /store top filter -->
+
+                        <!-- store products -->
+                        <div class="row" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+                            <% data.forEach((data) => { %>
+                                <div class="col-md-4 col-xs-6" style="margin-bottom: 50px;">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <img
+                                                src="/productImages/<%- data.images[0]%>"
+                                                height="300px"
+                                                width="150px"
+                                                alt="">
+                                            <div class="product-label">
+                                                <% if (data.offers && data.offers[0] && data.offers[0].discount > 0) { %>
+                                                    <span class="new">
+                                                        <b><%= data.offers[0].discount %>% OFF</b>
+                                                    </span>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">Category:
+                                                <%- data.category.category%>
+                                                </p>
+                                                <h3 class="product-name">
+                                                    <a href="/productview/<%= data._id %>">
+                                                        <%- data.productName %>
+                                                        </a>
+                                                    </h3>
+                                                    <h4 class="product-price"><%= data.price %>
+                                                    </h4>
+                                                    <div class="product-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="product-btns">
+                                                        <button class="add-to-wishlist" onclick="addtoWishlist('<%= data._id %>')">
+                                                            <i class="fa fa-heart-o"></i>
+                                                            <span class="tooltipp">Add to Wishlist</span>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="add-to-cart" onclick="addToCart('<%= data._id %>')">
+                                                    <button class="add-to-cart-btn">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        Add to cart
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                        </div>
+
+                                        <!-- /product -->
+
+                                        <!-- product -->
+
+                                    </div>
+                                    <!-- /store products -->
+<!-- store bottom filter -->
+<div class="store-filter clearfix">
+    <% if(typeof countproducts!=='undefined' ){%>
+        <div style="align-content: end;">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="/products">Previous</a></li>
+              <% for(let i=1;i<=countproducts;i++){ %>
+
+                <li class="page-item"><a class="page-link" href="?page=<%=i %>">
+                    <%=i %>
+                  </a></li>
+                <% } %>
+                  <li class="page-item"><a class="page-link" href="/products">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+          <%}%>
+   
+</div>
+<!-- /store bottom filter -->
+                                   
+                                </div>
+                                <!-- /STORE -->
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /container -->
+                    </div>
+
+                    <!-- FOOTER -->
+                    <footer id="footer">
+                        <!-- top footer -->
+                        <div class="section">
+                            <!-- container -->
+                            <div class="container-fluid">
+                                <!-- row -->
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-6">
+                                        <div class="footer">
+                                            <h3 class="footer-title">About Us</h3>
+                                            <p>We sell the best!!!</p>
+                                            <ul class="footer-links">
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-map-marker"></i>Kakkanchery, Malappuram</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-phone"></i>9990009900</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-envelope-o"></i>electro@gmail.com</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xs-6">
+                                        <div class="footer">
+                                            <h3 class="footer-title">Categories</h3>
+                                            <ul class="footer-links">
+
+                                                <li>
+                                                    <a href="/products">Laptops</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/products">Smartphones</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix visible-xs"></div>
+
+                                    <div class="col-md-3 col-xs-6">
+                                        <div class="footer">
+                                            <h3 class="footer-title">Information</h3>
+                                            <ul class="footer-links">
+                                                <li>
+                                                    <a href="#">About Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Contact Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Privacy Policy</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/orderlist">Orders and Returns</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Terms & Conditions</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xs-6">
+                                        <div class="footer">
+                                            <h3 class="footer-title">Service</h3>
+                                            <ul class="footer-links">
+                                                <li>
+                                                    <a href="/profile">My Account</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/cart">View Cart</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/wishlist">Wishlist</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/orderlist">Track My Order</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /row -->
+                            </div>
+                            <!-- /container -->
+                        </div>
+                        <!-- /top footer -->
+
+                    </footer>
+                    <!-- /FOOTER -->
+
+                    <script>
+                        function addtoWishlist(proId) {
+                            console.log(proId);
+                            $.ajax({
+                                url: '/addWishlist/' + proId, // replace with the URL of your server-side script
+                                type: 'get', // use POST method
+
+                                success: (response) => {
+                                    console.log(response);
+                                    if (response.done) {
+                                        Swal.fire(
+                                            {position: 'top-end', icon: 'success', title: 'Added to Whishlist', showConfirmButton: false, timer: 3000}
+                                        )
+                                    } else if (response.exist) {
+                                        Swal.fire(
+                                            {position: 'top-end', title: 'Already in Wishlist', showConfirmButton: false, timer: 3000}
+                                        )
+                                    } else {
+                                        location.href = '/login'
+                                    }
+
+                                }
+                            })
+                        }
+
+                        function addToCart(proId) {
+                            console.log(proId);
+                            $.ajax({
+                                url: '/add-to-cart/' + proId, // replace with the URL of your server-side script
+                                type: 'get', // use POST method
+
+                                success: (response) => {
+                                    console.log(response);
+                                    if (response.done) {
+                                        Swal.fire(
+                                            {position: 'top-end', icon: 'success', title: 'Added to Cart', showConfirmButton: false, timer: 1500}
+                                        )
+                                    } else if (response.exist) {
+                                        Swal.fire(
+                                            {position: 'top-end', title: 'Already in Cart', showConfirmButton: false, timer: 1500}
+                                        )
+                                    } else {
+                                        location.href = '/login'
+                                    }
+
+                                }
+                            })
+                        }
+                    </script>
+
+                    <%- include('../layout/user/footer.ejs')%>

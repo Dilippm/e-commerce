@@ -1,0 +1,84 @@
+
+<%- include('../layout/admin/header.ejs')%>
+
+<%- include('../layout/admin/navbar.ejs')%>
+<%- include('../layout/admin/sidebar.ejs')%>
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1> <b>Prodcut Details</b> </h1>
+      
+    </div>
+
+
+    
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+                            <h4><b>Images</b></h4>
+							<div id="product-main-img">
+                                <% for(let i=0; i<productdetail.images.length; i++){ %>
+                                  <div class="product-preview" style="padding-bottom: 20px;">
+                                    <img src="/productImages/<%=productdetail.images[i]%>" width="150px" height="150px" alt="">
+                                  </div>
+                                <% } %>
+                              </div>
+							
+						</div>
+					</div>
+					
+					<div class="col-md-5">
+						<div class="product-details">
+							<h4 class="product-name"><b>Product name:</b><%=productdetail.productName%></h4>
+							
+							<div>
+								<h4 class="product-price"><b>Price:</b>  ₹ <%=productdetail.price%> </h4>
+								<% if(productdetail.quantity == 0) { %>
+                                    <h4 class="product-price"> <b>Quantity:</b> <span style="color: red;">Out of stock</span> </h4>
+                                <% } else if(productdetail.quantity < 5) { %>
+                                    <h4 class="product-price"> <b>Quantity:</b> <span style="color: red;"><%=productdetail.quantity%></span> </h4>
+                                <% } else { %>
+                                    <h4 class="product-price"> <b>Quantity:</b> <%=productdetail.quantity%> </h4>
+                                <% } %>
+                                
+                                  
+								
+							</div>
+							<h4><b>Description:</b><%=productdetail.description%> </h4>
+							<h4><b>Category:</b><%=productdetail.category.category%> </h4>
+
+							
+							
+
+
+
+							
+
+						
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+				
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+		
+
+    </main>
+
+
+<%- include('../layout/admin/footer.ejs')%>
+

@@ -1,0 +1,97 @@
+<%- include('../layout/admin/header.ejs')%>
+
+<%- include('../layout/admin/navbar.ejs')%>
+<%- include('../layout/admin/sidebar.ejs')%>
+
+
+
+
+<main id="main" class="main">
+
+    <section>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">Edit Product</h2>
+                    <form action="/admin/product/editproduct/<%=product._id%>" method="post" enctype="multipart/form-data">
+                        <label for="">Product Name</label>
+                        <input type="text" name="productName" class="form-control" required value="<%= product.productName %>">
+    
+                         <label for="">Category</label>
+                         
+                        <select class="form-control" name="category" required >
+                            
+                            <option value="<%= product.category._id%>" selected><%=product.category.category%></option>
+                            <% categories.forEach((element,index) => {%>
+                            <% if (element._id != product.category._id) { %>
+                            <option value="<%= element._id %>"><%=element.category%></option>
+                            <% } %>
+                            <% });%>
+                        </select>
+                        
+    
+                       
+                         <label for="">Description</label>
+                        <input type="text" name="description" class="form-control" required value="<%= product.description %>">
+                          
+                        <label for="">Price</label>
+                        <input type="number" name="price" class="form-control" required value="<%= Math.round(product.price) %>" min="0">
+    
+                        <label for="">Quantity</label>
+                        <input type="number" name="quantity" class="form-control" required value="<%= product.quantity %>" min="0">
+                        <label for="">Offers</label>
+                        <input type="number" name="offer" class="form-control" value="<%= product.offers[0] ? product.offers[0].discount : '' %>" min="0">
+
+
+    
+                        
+    
+                        <label for="">Images</label>
+                        <input type="file" name="images" id="file-input" class=" form-control" accept= 'image/*' multiple>
+                        <% for (let i=0; i< product.images.length;i++){ %>
+                        <img src="/productImages/<%= product.images[i] %>" width="100" height="100" class="img-thumbnail mt-1">
+                        <% } %>
+                        <div class="previewImages"></div>
+    
+                         
+                        
+                        <button type="submit" class="btn btn-success mt-4">Submit</button> 
+                        <% if(typeof message !=="undefined") { %>
+                            <h1 style="font-size: 14px;color: brown;"><%=message  %></h1>
+                  <%} %>
+           </form>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+  
+
+    
+    </main><!-- End #main -->
+    
+    <script>
+        // Get the file input element
+        $(document).ready(function(){
+let imgPreview = function(input,imagePlace){
+if(input.files){
+let allFiles = input.files.length
+for(i=0;i<allFiles;i++){
+let reader = new FileReader()
+reader.onload = function(event){
+  $($.parseHTML("<img>")).attr("src",event.target.result).appendTo(imagePlace)
+}
+reader.readAsDataURL(input.files[i])
+}
+}
+}
+$("#file-input").on("change",function(){
+imgPreview(this,"div.previewImages")
+})
+})
+    </script>
+
+
+<%- include('../layout/admin/footer.ejs')%>

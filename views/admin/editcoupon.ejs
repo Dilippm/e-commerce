@@ -1,0 +1,91 @@
+<%- include('../layout/admin/header.ejs')%>
+    <%- include('../layout/admin/navbar.ejs')%>
+        <%- include('../layout/admin/sidebar.ejs')%>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.js"
+          integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        
+        
+          <main id="main" class="main">
+        
+            <section>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2 class="text-center">Add Category</h2>
+                            <!--djlkjlkajlkjkldajkkjslj-->
+              <% if(typeof message !=='undefined' ){ %>
+                <h5 style="color: rgb(206, 47, 47);">
+                    <%= message %>
+                </h5>
+                <% } %>
+              <div class="col-lg-12 col-xlg-12 col-md-12">
+                <div class="card">
+                  <!-- Tab panes -->
+                  <div class="card-body">
+                    <form action="/admin/EditCoupon/<%=coupondata._id%>" class="form-horizontal form-material" method="post"
+                   id="addCoupon"  >
+                   <div id="alertpasswordUser1" class="alert alert-danger" role="alert" style="display: none; " >
+        
+                   </div>
+                   <div id="alertpasswordUser" class="alert alert-success" role="alert" style="display: none;">
+        
+                   </div>
+                      <div class="form-group">
+                        <label class="col-md-8">Coupon Code</label>
+                        <div class="col-md-8">
+                          <input type="text" name="code" class="form-control form-control-line"value="<%=coupondata.code%>"required>
+                        </div>
+                      </div>
+                     
+                      <div class="form-group">
+                        <label class="col-md-12">Expire Date</label>
+                        <div class="col-md-8">
+                            <input type="date" name="expirationDate" class="form-control form-control-line" name="example-email"
+                              id="example-email" value="<%=coupondata.expirationDate.toISOString().slice(0,10)%>" required>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-12">Maximum Discount</label>
+                        <div class="col-md-8">
+                            <input type="number" name="maxDiscount" class="form-control form-control-line" name="example-email"
+                              id="example-email"value="<%=coupondata.maxDiscount%>"required>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-8">Minimum Purchase Amount</label>
+                        <div class="col-md-8">
+                            <input type="Number" name="MinPurchaceAmount" class="form-control form-control-line" name="example-email"
+                              id="example-email"value="<%=coupondata.MinPurchaceAmount%>"required>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-md-12">Percentage Off</label>
+                        <div class="col-md-8">
+                            <input type="Number" min="0" max="100" name="percentageOff" class="form-control form-control-line" name="example-email"
+                              id="example-email"value="<%=coupondata.percentageOff%>"required>
+                          </div>
+                      </div>
+                     
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <button type='submit' class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                   
+                  </div>
+                </div>
+              </div>
+              <!-- Column -->
+        
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- End #main -->
+        
+
+        <%- include('../layout/admin/footer.ejs')%>
