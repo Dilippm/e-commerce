@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://dilip:dilip@cluster1.se7v4zb.mongodb.net/ecart')
+
+require('dotenv').config();
+mongoose.connect(process.env.MONGODB_URI);
+
 const session = require('express-session');
 const express = require('express')
 const app = express()
