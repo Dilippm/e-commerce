@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/ecart')
+mongoose.connect('mongodb+srv://dilip:dilip@cluster1.se7v4zb.mongodb.net/ecart')
 const session = require('express-session');
 const express = require('express')
 const app = express()
