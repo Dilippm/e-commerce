@@ -59,16 +59,12 @@
           
           
           <% if (element.listed) { %>
-            <button type="button" class="btn btn-warning">
-              <a href="/admin/product/unlistproduct/<%= element._id %>" style="color: black; text-decoration: none;">
-                <i class="fas fa-minus-circle"></i> Unlist
-              </a>
+            <button type="button" class="btn btn-danger">
+              <a href="/admin/product/unlistproduct/<%= element._id %>" style="color: white; text-decoration: none;">Unlist</a>
             </button>
           <% } else { %>
             <button type="button" class="btn btn-success">
-              <a href="/admin/product/listproduct/<%= element._id %>" style="color: white; text-decoration: none;">
-                <i class="fas fa-plus-circle"></i> List
-              </a>
+              <a href="/admin/product/listproduct/<%= element._id %>" style="color: white; text-decoration: none;">List</a>
             </button>
           <% } %>
           
