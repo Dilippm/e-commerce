@@ -88,6 +88,8 @@ adminRoute.post(
     productcontroller.UpdateProduct
 )
 adminRoute.get('/product/viewdetails/:id', productcontroller.viewdDetails)
+adminRoute.get('/product/unlistproduct/:id',productcontroller.unListProduct)
+adminRoute.get('/product/listproduct/:id',productcontroller.ListProduct)
 adminRoute.get('/user', auth.isLogin, adminusercontroller.loadUser);
 adminRoute.get(
     '/user/blockuser/:id',

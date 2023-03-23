@@ -35,7 +35,11 @@ const productData = mongoose.Schema({
       required: true
     }
 
-  }]
+  }],
+  listed: {
+    type: Boolean,
+    default: true
+  }
 });
 
 module.exports = mongoose.model('product', productData);

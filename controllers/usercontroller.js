@@ -28,7 +28,7 @@ const securePassword = async (password) => {
 const guest = async (req, res) => {
     try {
 
-        const data = await product.find();
+        const data = await product.find({listed:true});
         const cat = await category.find();
         const banners = await ads.find({})
         const users = false;
@@ -88,7 +88,7 @@ const userHome = async (req, res) => {
         if (req.session.user_id) {
             const id = req.session.user_id
             const users = true;
-            const data = await product.find();
+            const data = await product.find({listed:true});
 
             const cata = await category.find();
             const use = await user.findOne({_id: id});
@@ -611,7 +611,7 @@ const allProductView = async (req, res) => {
         }
 
         const data = await product
-            .find()
+            .find({listed:true})
             .populate("category")
             .limit(limit)
             .skip((pages - 1) * limit)

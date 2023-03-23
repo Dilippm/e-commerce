@@ -57,6 +57,24 @@
             <i class="fas fa-trash" style="padding-right: 10px; color: red; "></i>
           </a>
           
+          
+          <% if (element.listed) { %>
+            <button type="button" class="btn btn-warning">
+              <a href="/admin/product/unlistproduct/<%= element._id %>" style="color: black; text-decoration: none;">
+                <i class="fas fa-minus-circle"></i> Unlist
+              </a>
+            </button>
+          <% } else { %>
+            <button type="button" class="btn btn-success">
+              <a href="/admin/product/listproduct/<%= element._id %>" style="color: white; text-decoration: none;">
+                <i class="fas fa-plus-circle"></i> List
+              </a>
+            </button>
+          <% } %>
+          
+          
+          
+          
           <a href="/admin/product/viewdetails/<%=element.id%>">
             <i class="fas fa-eye" style="padding-right: 10px; color: black " ></i>
           </a>

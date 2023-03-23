@@ -167,6 +167,42 @@ const viewdDetails = async (req, res) => {
     console.log(error.message);
   }
 }
+const unListProduct = async (req, res) => {
+  try {
+    
+      const productId = req.params.id;
+      
+       await product.updateOne({
+        _id:productId,
+      },{
+        $set:{
+          listed:false
+        }
+      });
+      
+      res.redirect("/admin/product");
+    } catch (error) {
+    console.log(error.message);
+   
+  }
+};
+const ListProduct =async(req,res)=>{
+  try {
+    const productId = req.params.id;
+    
+     await product.updateOne({
+      _id:productId,
+    },{
+      $set:{
+        listed:true
+      }
+    });
+   
+    res.redirect("/admin/product");
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 module.exports = {
 
@@ -177,6 +213,8 @@ module.exports = {
   deleteProduct,
   editProduct,
   UpdateProduct,
-  viewdDetails
+  viewdDetails,
+  unListProduct,
+  ListProduct
 
 }
