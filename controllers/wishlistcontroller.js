@@ -28,6 +28,7 @@ const loadWishlist = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const addToWishlist = async (req, res) => {
@@ -71,6 +72,7 @@ const addToWishlist = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -114,6 +116,7 @@ const removeWishlist = async (req, res, next) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 module.exports = {

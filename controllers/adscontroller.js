@@ -7,6 +7,7 @@ const loadAds = async (req, res) => {
         res.render('add_ads', {add: adds})
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const addAdds = async (req, res) => {
@@ -15,6 +16,7 @@ const addAdds = async (req, res) => {
         res.render('add_view', {categoryData: categoryData})
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const insertAdds = async (req, res) => {
@@ -35,6 +37,7 @@ const insertAdds = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const loadEditBanner = async (req, res) => {
@@ -44,6 +47,7 @@ const loadEditBanner = async (req, res) => {
         res.render('edit_add', {details: details})
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const saveEditBanner = async (req, res) => {
@@ -70,6 +74,7 @@ const saveEditBanner = async (req, res) => {
         res.redirect('/admin/ads');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const deleteAdd = async (req, res) => {
@@ -81,6 +86,7 @@ const deleteAdd = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 

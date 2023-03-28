@@ -132,7 +132,7 @@ adminRoute.get('/EditCoupon/:id', auth.isLogin, couponcontroller.EditCoupon);
 adminRoute.post('/EditCoupon/:id', couponcontroller.SaveCoupon);
 
 adminRoute.get('*', function (req, res) {
-    res.redirect('/admin');
+    res.render('404')
 })
 
 module.exports = adminRoute;

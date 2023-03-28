@@ -81,6 +81,7 @@ const guest = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const userHome = async (req, res) => {
@@ -152,6 +153,7 @@ const userHome = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -161,6 +163,7 @@ const loadLogin = async (req, res) => {
         res.render('login');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 // login page post
@@ -185,6 +188,7 @@ const verifyLogin = async (req, res) => {
         res.render('login', {message: 'Invalid email or password.'});
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 
@@ -194,6 +198,7 @@ const loadRegister = async (req, res) => {
         res.render('userregister');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -219,6 +224,7 @@ const verifySignup = async (req, res) => {
             res.render('otppage')
         } catch (error) {
             console.log(error.message);
+            res.render("500");
         }
     }
 }
@@ -262,6 +268,7 @@ const verifyOtp = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -272,6 +279,7 @@ const userLogout = async (req, res) => {
         res.render('login');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 
 }
@@ -292,6 +300,7 @@ const productView = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -315,6 +324,7 @@ const profile = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -346,7 +356,7 @@ const updateUser = async (req, res) => {
             res.redirect('/login')
         }
     } catch (error) {
-        next(error);
+        res.render("500");
     }
 }
 
@@ -371,6 +381,7 @@ const addressView = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 
 }
@@ -383,6 +394,7 @@ const addAddress = async (req, res) => {
         res.render('addAddress', {users, use})
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -414,6 +426,7 @@ const insertAddress = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -442,6 +455,7 @@ const editaddress = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 
 }
@@ -465,6 +479,7 @@ const editedAddress = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -490,6 +505,7 @@ const removeAddress = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -515,6 +531,7 @@ const viewOrders = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 const cancelOrder = async (req, res) => {
@@ -589,6 +606,7 @@ const orderDetails = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 
 }
@@ -683,6 +701,7 @@ const allProductView = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 
@@ -788,6 +807,7 @@ const sortProductCategory = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 module.exports = {

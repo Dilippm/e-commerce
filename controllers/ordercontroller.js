@@ -38,6 +38,7 @@ const loadCheckOut = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 };
 
@@ -172,14 +173,7 @@ const successLoad = async (req, res) => {
           }
 
           await Coupon.updateOne({ code: req.body.code }, { $push: { userUsed: userid._id } })
-          const removing = await User.updateOne(
-            { _id: req.session.user_id },
-            {
-              $pull: { cart: { product: { $in: productId } } },
-              $set: { totalPrice: 0 }
-            }
-          );
-
+          
           const latestOrder = await Order.findOne({}).sort({ date: -1 }).lean();
 
 
@@ -292,6 +286,7 @@ const successLoad = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 
@@ -312,14 +307,28 @@ const PaymentVerified = async (req, res) => {
       hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id)
       hmac = hmac.digest('hex')
 
+      const latestOrder = await Order
+      .findOne({})
+      .sort({ date: -1 })
+      .lean();
+
 
       if (hmac == details['payment']['razorpay_signature']) {
        
-        const latestOrder = await Order
-          .findOne({})
-          .sort({ date: -1 })
-          .lean();
+       
         const change = await Order.updateOne({ _id: latestOrder._id }, { $set: { status: "Processing" } })
+        for (let i = 0; i < latestOrder.product.length; i++) {
+          const productId = latestOrder.product[i].productId;
+  
+          const removing = await User.updateOne(
+            { _id: req.session.user_id },
+            {
+              $pull: { cart: { product: { $in: productId } } },
+              $set: { totalPrice: 0 }
+            }
+          );
+
+        }
         res.json({ status: true })
       } else {
        
@@ -331,6 +340,7 @@ const PaymentVerified = async (req, res) => {
 
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 
@@ -350,6 +360,7 @@ const orderConfirmation = async (req, res) => {
 
   } catch {
     console.log(error.message);
+    res.render("500");
   }
 }
 

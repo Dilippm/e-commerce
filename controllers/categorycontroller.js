@@ -7,7 +7,8 @@ const adminCategory = async (req, res) => {
         res.render('admincategory', {categoryData: categorydata})
 
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        res.render("500");
     }
 
 }
@@ -16,7 +17,8 @@ const adminAddCategory = async (req, res) => {
     try {
         res.render('addcategory')
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -44,6 +46,7 @@ const addNewCategory = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -66,6 +69,7 @@ const deleteCategory = async (req, res) => {
     } catch (error) {
         console.log(error.message);
         //res.status(500).json({ message: "Error occurred while deleting category" });
+        res.render("500");
     }
 };
 
@@ -77,6 +81,7 @@ const viewEditCategory = async (req, res) => {
         res.render('editcategory', {vcategory: categorydata});
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const editCategory = async (req, res) => {
@@ -128,6 +133,7 @@ const editCategory = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 

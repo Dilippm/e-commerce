@@ -155,5 +155,10 @@ userRoute.post(
     wishlistcontroller.addToWishlist
 )
 userRoute.post('/applycoupon', couponController.applyCoupon)
+//PAGE NOT FOUNF HANDLEING
+userRoute.use(function(req,res,next){
+    res.render('404')
+  })
+  
 
 module.exports = userRoute;

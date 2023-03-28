@@ -11,6 +11,7 @@ const loadProduct = async (req, res) => {
     res.render('adminproduct', { productData: productdata })
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 
@@ -20,6 +21,7 @@ const addProduct = async (req, res) => {
     res.render('addproduct', { categories: categories });
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 
@@ -72,7 +74,7 @@ const insertProduct = async (req, res) => {
     console.log(error.message);
     // req.session.message = {   type: 'danger',   message: 'Error occurred while
     // adding product', };
-    res.redirect('/admin/product');
+    res.render("500");
   }
 };
 
@@ -83,6 +85,7 @@ const deleteProduct = async (req, res) => {
     res.redirect('/admin/product')
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 const editProduct = async (req, res) => {
@@ -97,6 +100,7 @@ const editProduct = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 
@@ -153,6 +157,7 @@ const UpdateProduct = async (req, res) => {
     res.redirect("/admin/product");
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 };
 
@@ -165,6 +170,7 @@ const viewdDetails = async (req, res) => {
     res.render('productdetails', { productdetail: productData });
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 const unListProduct = async (req, res) => {
@@ -183,6 +189,7 @@ const unListProduct = async (req, res) => {
       res.redirect("/admin/product");
     } catch (error) {
     console.log(error.message);
+    res.render("500");
    
   }
 };
@@ -201,6 +208,7 @@ const ListProduct =async(req,res)=>{
     res.redirect("/admin/product");
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 }
 

@@ -35,6 +35,7 @@ const viewCart = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -120,6 +121,7 @@ const addCart = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 
@@ -163,6 +165,7 @@ const deleteCart = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -233,6 +236,7 @@ const changeQuantity = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 

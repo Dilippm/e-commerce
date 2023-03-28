@@ -14,6 +14,7 @@ const loadCoupons = async (req, res) => {
         })
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 //load add coupon
@@ -22,6 +23,7 @@ const loadAddCoupon = async (req, res) => {
         res.render('addcoupon')
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -41,6 +43,7 @@ const insertCoupon = async (req, res) => {
         res.redirect('/admin/coupons')
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -57,6 +60,7 @@ const deleteCoupon = async (req, res) => {
         res.redirect('/admin/coupons')
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 //edit coupon
@@ -68,6 +72,7 @@ const EditCoupon = async (req, res, next) => {
         res.render('editcoupon', {coupondata: couponDta})
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 //save coupon
@@ -90,6 +95,7 @@ const SaveCoupon = async (req, res) => {
         res.redirect('/admin/coupons')
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 //apply coupon
@@ -150,6 +156,7 @@ const applyCoupon = async (req, res) => {
         }
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 

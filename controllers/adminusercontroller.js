@@ -6,6 +6,7 @@ const loadUser = async (req, res) => {
         res.render('adminuserlist', {userData: userdata});
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 
@@ -24,6 +25,7 @@ const blockUser = async (req, res) => {
         res.redirect('/admin/user');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 const unblockuser = async (req, res) => {
@@ -41,6 +43,7 @@ const unblockuser = async (req, res) => {
         res.redirect('/admin/user');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 module.exports = {

@@ -39,6 +39,7 @@ const viewOrder = async (req, res) => {
   } catch (error) {
     // Log any errors that occur
     console.log(error.message);
+    res.render("500");
   }
 };
 
@@ -72,6 +73,7 @@ const dropdown = async (req, res) => {
 
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 };
 // details for a specific order
@@ -90,6 +92,7 @@ const orderDetails = async (req, res) => {
   } catch (error) {
     // If an error occurs, log it to the console
     console.log(error.message);
+    res.render("500");
   }
 };
 

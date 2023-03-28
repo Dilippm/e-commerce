@@ -14,6 +14,7 @@ const adminRegister = async (req, res) => {
     } catch (error) {
         // Log any errors that occur
         console.log(error.message);
+        res.render("500");
     }
 }
 // verify admin login
@@ -40,6 +41,7 @@ const verifylogin = async (req, res) => {
     } catch (error) {
         // Log any errors that occur
         console.log(error.message)
+        res.render("500");
     }
 }
 //loading the dashboard page
@@ -242,6 +244,7 @@ const loadDashboard = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 //admin logout
@@ -253,6 +256,7 @@ const adminLogout = async (req, res) => {
         res.redirect('/admin');
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 }
 
@@ -299,6 +303,7 @@ const viewDailySalesReport = async (req, res) => {
         res.render("salesreport", { salesByDayAndProduct });
     } catch (error) {
         console.log(error.message);
+        res.render("500");
     }
 };
 
